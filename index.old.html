@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Patrícia Viana Lawyer — Licensed Portuguese immigration lawyers specializing in D7 & D8 visas. 800+ clients served. Book a 45-min strategy session for €95.">
+    <title>Patrícia Viana Lawyer — Move to Portugal with Legal Precision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --gold: #D9A443;
+            --gold-dark: #B67600;
+            --black: #0A0A0A;
+            --navy: #021740;
+            --white: #FFFFFF;
+            --gray-light: #F2F2F5;
+            --gray-mid: #E0E0E4;
+            --text-dark: #1A1A1A;
+            --text-muted: #6B6B6B;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Figtree', system-ui, sans-serif;
+            --max-width: 1280px;
+            --pad-section: 96px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        .label::before {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .h1 { font-family: var(--font-serif); font-size: clamp(48px, 6vw, 80px); font-weight: 600; line-height: 1.08; letter-spacing: -0.01em; }
+        .h2 { font-family: var(--font-serif); font-size: clamp(34px, 3.8vw, 54px); font-weight: 600; line-height: 1.15; }
+        .h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 600; line-height: 1.3; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 15px 34px;
+            border-radius: 100px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.28s cubic-bezier(.4,0,.2,1);
+            white-space: nowrap;
+        }
+        .btn-gold { background: var(--gold); color: var(--black); }
+        .btn-gold:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(217,164,67,.32); }
+        .btn-outline-white { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.38); }
+        .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,.09); }
+        .btn-navy { background: var(--navy); color: var(--white); }
+        .btn-navy:hover { background: #011030; transform: translateY(-2px); }
+
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        /* NAVBAR */
+        #nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all .35s ease;
+        }
+        #nav.scrolled {
+            background: rgba(10,10,10,.96);
+            backdrop-filter: blur(12px);
+            padding: 13px 0;
+            box-shadow: 0 2px 40px rgba(0,0,0,.28);
+        }
+        .nav-wrap { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { height: 56px; }
+        .nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,.82); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+        .nav-links a:hover { color: var(--white); }
+
+        /* HERO */
+        #hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; padding-bottom: 88px; }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Photo-11-1.png') center top / cover no-repeat;
+        }
+        .hero-grad {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(10,10,10,.12) 0%, rgba(10,10,10,.38) 45%, rgba(10,10,10,.88) 80%, rgba(10,10,10,.96) 100%);
+        }
+        .hero-body { position: relative; z-index: 2; max-width: 820px; }
+        .hero-body .label { margin-bottom: 26px; }
+        .hero-title { font-family: var(--font-serif); font-size: clamp(48px, 6vw, 82px); font-weight: 600; color: var(--white); line-height: 1.06; letter-spacing: -0.01em; margin-bottom: 26px; }
+        .hero-title em { color: var(--gold); font-style: italic; }
+        .hero-sub { font-size: 18px; color: rgba(255,255,255,.76); max-width: 600px; line-height: 1.75; margin-bottom: 18px; }
+        .hero-sub strong { color: rgba(255,255,255,.95); }
+        .hero-sub-small { font-size: 15px; color: rgba(255,255,255,.56); max-width: 580px; line-height: 1.75; margin-bottom: 40px; }
+        .hero-ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+        .hero-trust {
+            display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+            padding-top: 36px;
+            border-top: 1px solid rgba(255,255,255,.15);
+        }
+        .trust-stat { text-align: left; }
+        .trust-num { font-family: var(--font-serif); font-size: 38px; font-weight: 700; color: var(--gold); line-height: 1; }
+        .trust-lbl { font-size: 12px; color: rgba(255,255,255,.62); font-weight: 500; margin-top: 3px; }
+        .trust-sep { width: 1px; height: 44px; background: rgba(255,255,255,.18); }
+
+        /* ABOUT */
+        #sobre { padding: var(--pad-section) 0; background: var(--white); }
+        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: center; }
+        .sobre-img-wrap { position: relative; }
+        .sobre-img-wrap img { width: 100%; border-radius: 4px; display: block; object-fit: cover; }
+        .sobre-badge {
+            position: absolute; bottom: -28px; right: -28px;
+            background: var(--gold); color: var(--black); padding: 26px 30px;
+            border-radius: 4px; text-align: center; box-shadow: 0 8px 32px rgba(217,164,67,.38);
+        }
+        .badge-num { font-family: var(--font-serif); font-size: 48px; font-weight: 700; line-height: 1; }
+        .badge-lbl { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-top: 5px; }
+        .sobre-text .label { margin-bottom: 18px; }
+        .sobre-text .h2 { margin-bottom: 26px; }
+        .sobre-text .h2 em { color: var(--gold); font-style: italic; }
+        .sobre-text p { font-size: 16px; color: var(--text-muted); line-height: 1.82; margin-bottom: 16px; }
+        .sobre-text p strong { color: var(--text-dark); font-weight: 600; }
+        .sobre-list { list-style: none; margin-top: 30px; display: flex; flex-direction: column; gap: 13px; }
+        .sobre-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; font-weight: 500; color: var(--text-dark); }
+        .check { width: 20px; height: 20px; min-width: 20px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+        .check::after { content: ''; width: 10px; height: 6px; border-left: 2px solid var(--black); border-bottom: 2px solid var(--black); transform: rotate(-45deg) translate(1px, -1px); }
+
+        /* WHY US (dark panel) */
+        #why-us { background: var(--black); padding: var(--pad-section) 0; }
+        .why-head { text-align: center; max-width: 620px; margin: 0 auto 64px; }
+        .why-head .label { justify-content: center; margin-bottom: 16px; }
+        .why-head .h2 { color: var(--white); margin-bottom: 14px; }
+        .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+        .why-card { padding: 44px 40px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07); transition: background .3s, border-color .3s; }
+        .why-card:hover { background: rgba(217,164,67,.06); border-color: rgba(217,164,67,.22); }
+        .why-icon { width: 52px; height: 52px; object-fit: contain; margin-bottom: 20px; display: block; opacity: .9; filter: brightness(0) invert(1); }
+        .why-card .h3 { color: var(--white); margin-bottom: 12px; }
+        .why-card p { color: rgba(255,255,255,.48); font-size: 15px; line-height: 1.75; }
+        .why-gold { color: var(--gold) !important; }
+
+        /* STATS */
+        #stats { background: var(--gray-light); padding: 80px 0; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); }
+        .stat { padding: 52px 32px; text-align: center; border-right: 1px solid var(--gray-mid); }
+        .stat:last-child { border-right: none; }
+        .stat-num { font-family: var(--font-serif); font-size: 68px; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+        .stat-lbl { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+
+        /* SERVICES */
+        #services { padding: var(--pad-section) 0; background: var(--gray-light); }
+        .sec-head { text-align: center; max-width: 620px; margin: 0 auto 64px; }
+        .sec-head .label { justify-content: center; margin-bottom: 16px; }
+        .sec-head .h2 { margin-bottom: 14px; }
+        .sec-head p { color: var(--text-muted); font-size: 16px; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .srv-card {
+            border: 1px solid var(--gold); border-radius: 16px; padding: 38px 34px;
+            background: var(--white);
+            position: relative; overflow: hidden;
+            transition: transform .28s ease, box-shadow .28s ease;
+        }
+        .srv-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(217,164,67,.06) 0%, transparent 60%); opacity: 0; transition: opacity .28s; }
+        .srv-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(217,164,67,.14); }
+        .srv-card:hover::after { opacity: 1; }
+        .srv-icon { width: 54px; height: 54px; object-fit: contain; margin-bottom: 22px; display: block; }
+        .srv-card .h3 { margin-bottom: 12px; }
+        .srv-card p { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+
+        /* PROCESS */
+        #process { background: var(--white); padding: var(--pad-section) 0; }
+        .steps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+        .steps-row::before { content: ''; position: absolute; top: 44px; left: calc(16.67% + 44px); right: calc(16.67% + 44px); height: 1px; background: var(--gold); opacity: .4; }
+        .step { padding: 0 36px; text-align: center; }
+        .step-circle { width: 88px; height: 88px; border-radius: 50%; background: var(--white); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; position: relative; z-index: 1; }
+        .step-circle span { font-family: var(--font-serif); font-size: 34px; font-weight: 700; color: var(--gold); }
+        .step-icon { width: 44px; height: 44px; object-fit: contain; }
+        .step .h3 { margin-bottom: 12px; }
+        .step p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
+
+        /* REVIEWS */
+        #reviews { padding: var(--pad-section) 0; background: var(--gray-light); }
+        .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .testi-card { background: var(--white); border: 1px solid var(--gray-mid); border-radius: 16px; padding: 38px 34px; position: relative; }
+        .testi-card::before { content: '\201C'; font-family: var(--font-serif); font-size: 88px; color: var(--gold); opacity: .22; position: absolute; top: 10px; left: 26px; line-height: 1; pointer-events: none; }
+        .stars { display: flex; gap: 3px; margin-bottom: 18px; color: var(--gold); font-size: 15px; }
+        .testi-card p { font-size: 15px; color: var(--text-dark); line-height: 1.82; margin-bottom: 26px; font-style: italic; }
+        .testi-author { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 17px; font-weight: 700; color: var(--black); flex-shrink: 0; }
+        .author-name { font-size: 14px; font-weight: 600; }
+        .author-detail { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        /* CTA BANNER */
+        #cta-banner { position: relative; padding: 120px 0; overflow: hidden; }
+        .cta-photo { position: absolute; inset: 0; background: url('https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Photo-7-1-1.png') center / cover no-repeat; filter: brightness(.35); }
+        .cta-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(2,23,64,.72) 0%, rgba(10,10,10,.78) 100%); }
+        .cta-body { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; }
+        .cta-body .label { justify-content: center; margin-bottom: 20px; }
+        .cta-body .h2 { color: var(--white); margin-bottom: 18px; }
+        .cta-body .h2 em { color: var(--gold); font-style: italic; }
+        .cta-body > p { color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.75; margin-bottom: 40px; }
+        .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+        .cta-footnote { margin-top: 28px; font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.6; }
+        .cta-footnote strong { color: rgba(255,255,255,.8); }
+
+        /* BOOKING / CONTACT */
+        #booking { background: var(--white); padding: var(--pad-section) 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start; }
+        .contact-info .label { margin-bottom: 16px; }
+        .contact-info .h2 { margin-bottom: 24px; }
+        .contact-info .h2 em { color: var(--gold); font-style: italic; }
+        .contact-info > p { font-size: 16px; color: var(--text-muted); line-height: 1.82; margin-bottom: 36px; }
+        .contact-details { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .contact-details li { display: flex; align-items: flex-start; gap: 14px; font-size: 15px; }
+        .c-icon { width: 42px; height: 42px; min-width: 42px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .contact-details .c-txt strong { display: block; font-weight: 600; color: var(--text-dark); }
+        .contact-details .c-txt small { color: var(--text-muted); font-size: 13px; }
+        .contact-cta { margin-top: 36px; }
+        .form-card { background: var(--gray-light); border-radius: 16px; padding: 50px; }
+        .form-card .h3 { margin-bottom: 6px; }
+        .form-card .form-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 34px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .field { margin-bottom: 20px; }
+        .field label { display: block; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--text-dark); margin-bottom: 7px; }
+        .field input, .field select, .field textarea { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gray-mid); border-radius: 10px; font-family: var(--font-sans); font-size: 14px; color: var(--text-dark); background: var(--white); outline: none; transition: border-color .2s; -webkit-appearance: none; }
+        .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+        .field textarea { resize: vertical; min-height: 100px; }
+        .form-submit { width: 100%; padding: 16px; background: var(--navy); color: var(--white); font-family: var(--font-sans); font-size: 15px; font-weight: 600; border: none; border-radius: 100px; cursor: pointer; transition: all .28s; margin-top: 6px; }
+        .form-submit:hover { background: var(--black); transform: translateY(-2px); }
+
+        /* FOOTER */
+        footer { background: var(--black); padding: 70px 0 32px; }
+        .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 52px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 32px; }
+        .footer-brand .footer-logo { height: 58px; margin-bottom: 16px; display: block; }
+        .footer-brand p { font-size: 14px; color: rgba(255,255,255,.44); line-height: 1.8; max-width: 260px; }
+        .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .footer-col ul li a { color: rgba(255,255,255,.44); text-decoration: none; font-size: 14px; transition: color .2s; }
+        .footer-col ul li a:hover { color: var(--white); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .footer-bottom p { color: rgba(255,255,255,.28); font-size: 12px; }
+        .social-row { display: flex; gap: 10px; }
+        .soc-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; color: var(--gold); text-decoration: none; transition: all .22s; }
+        .soc-btn:hover { background: var(--gold); color: var(--black); }
+        .soc-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+        /* WHATSAPP */
+        .wa-float { position: fixed; bottom: 28px; right: 28px; width: 58px; height: 58px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.42); z-index: 999; text-decoration: none; transition: all .3s; animation: wa-pulse 3s ease-in-out infinite; }
+        .wa-float:hover { transform: scale(1.1); }
+        .wa-float svg { width: 28px; height: 28px; fill: white; }
+        @keyframes wa-pulse { 0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,.42); } 50% { box-shadow: 0 4px 32px rgba(37,211,102,.68); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            :root { --pad-section: 64px; }
+            .container { padding: 0 28px; }
+            .sobre-grid { grid-template-columns: 1fr; gap: 52px; }
+            .sobre-badge { bottom: 20px; right: 20px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .stat { border-bottom: 1px solid var(--gray-mid); }
+            .stat:nth-child(1), .stat:nth-child(3) { border-right: 1px solid var(--gray-mid); }
+            .stat:nth-child(2), .stat:nth-child(4) { border-right: none; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .nav-links { display: none; }
+            .why-grid { grid-template-columns: 1fr; }
+            .steps-row { grid-template-columns: 1fr; gap: 40px; }
+            .steps-row::before { display: none; }
+            .testi-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-card { padding: 28px 22px; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .hero-ctas { flex-direction: column; align-items: flex-start; }
+            .hero-trust { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="nav">
+    <div class="container">
+        <div class="nav-wrap">
+            <a href="#">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8.png"
+                     alt="Viana — Patrícia Viana Lawyer" class="nav-logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#services">Services</a></li>
+            </ul>
+            <a href="#booking" class="btn btn-gold">Book a Session →</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grad"></div>
+    <div class="container">
+        <div class="hero-body reveal">
+            <p class="label">★ 4.8 Excellent Google Reviews</p>
+            <h1 class="hero-title">
+                Move to Portugal<br>
+                <em>with Legal Precision</em>
+            </h1>
+            <p class="hero-sub">
+                Designed for remote workers, retirees, and professionals with proven international income, guided by <strong>licensed immigration lawyers</strong>.
+            </p>
+            <p class="hero-sub-small">
+                Book a 45-minute strategy session for €95 — credited toward your full process if you decide to proceed. Receive clear guidance on the right visa pathway and a written summary after the session.
+            </p>
+            <div class="hero-ctas">
+                <a href="#booking" class="btn btn-gold" style="font-size:16px;padding:17px 42px;">Book A Relocation Strategy Session →</a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-stat">
+                    <div class="trust-num">4.8★</div>
+                    <div class="trust-lbl">Google Reviews</div>
+                </div>
+                <div class="trust-sep"></div>
+                <div class="trust-stat">
+                    <div class="trust-num">800+</div>
+                    <div class="trust-lbl">Clients served</div>
+                </div>
+                <div class="trust-sep"></div>
+                <div class="trust-stat">
+                    <div class="trust-num">200+</div>
+                    <div class="trust-lbl">Legal disputes won</div>
+                </div>
+                <div class="trust-sep"></div>
+                <div class="trust-stat">
+                    <div class="trust-num">D7+D8</div>
+                    <div class="trust-lbl">Visa specialists</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+    <div class="container">
+        <div class="why-head reveal">
+            <p class="label">What sets us apart</p>
+            <h2 class="h2">The difference that<br>matters to your case</h2>
+        </div>
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Lawyer.png" alt="" class="why-icon">
+                <h3 class="h3">Licensed Portuguese Lawyers</h3>
+                <p>We're not a visa agency. We're a law firm led by immigration attorney <span class="why-gold">Patrícia Viana</span>, licensed in both Portugal and Brazil.</p>
+            </div>
+            <div class="why-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Travel-Visa.png" alt="" class="why-icon">
+                <h3 class="h3">Specialized in D7 & D8 Visas</h3>
+                <p>These are our core services. We know the process inside and out, and stay up to date on the latest <span class="why-gold">AIMA requirements</span>.</p>
+            </div>
+            <div class="why-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Group-Task.png" alt="" class="why-icon">
+                <h3 class="h3">Fast, Transparent Communication</h3>
+                <p>We speak your language. We explain your options clearly, and keep you <span class="why-gold">updated at every stage</span> — no guesswork.</p>
+            </div>
+            <div class="why-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Law-Book.png" alt="" class="why-icon">
+                <h3 class="h3">Tailored Support</h3>
+                <p>Every client is different. We customize your legal strategy to your specific background, <span class="why-gold">nationality, income, and goals</span>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre">
+    <div class="container">
+        <div class="sobre-grid">
+            <div class="sobre-img-wrap reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Group-6.png"
+                     alt="Viana Consultancy — clients">
+                <div class="sobre-badge">
+                    <div class="badge-num">800+</div>
+                    <div class="badge-lbl">Clients<br>Served</div>
+                </div>
+            </div>
+            <div class="sobre-text reveal">
+                <p class="label">Why Viana Consultancy</p>
+                <h2 class="h2">Most relocation companies<br>outsource their legal work.<br><em>We don't.</em></h2>
+                <p>At <strong>Viana Consultancy</strong>, your process is personally handled by licensed Portuguese lawyers, without intermediaries.</p>
+                <p>We support clients applying for the <strong>D7 Visa</strong> (passive income) and <strong>D8 Visa</strong> (digital nomads), guiding each step from planning to arrival, avoiding costly mistakes from the start.</p>
+                <p>Over 800 clients have trusted us to build their path to Portugal with clarity, care, and confidence. That's why even other relocation firms come to us. Why not start with the team they trust?</p>
+                <ul class="sobre-list">
+                    <li><span class="check"></span> Licensed Portuguese lawyers — no intermediaries</li>
+                    <li><span class="check"></span> Specialized exclusively in D7 & D8 visas</li>
+                    <li><span class="check"></span> Always current on AIMA requirements</li>
+                    <li><span class="check"></span> Fluent in Portuguese, English and Spanish</li>
+                    <li><span class="check"></span> Full legal support from planning to arrival</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+    <div class="container">
+        <div class="stats-row">
+            <div class="stat reveal">
+                <div class="stat-num">800+</div>
+                <div class="stat-lbl">Clients Successfully Served</div>
+            </div>
+            <div class="stat reveal">
+                <div class="stat-num">200+</div>
+                <div class="stat-lbl">Legal Disputes Resolved</div>
+            </div>
+            <div class="stat reveal">
+                <div class="stat-num">4.8★</div>
+                <div class="stat-lbl">Excellent Google Rating</div>
+            </div>
+            <div class="stat reveal">
+                <div class="stat-num">D7+D8</div>
+                <div class="stat-lbl">Visa Specialists</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="container">
+        <div class="sec-head reveal">
+            <p class="label">What we offer</p>
+            <h2 class="h2">Complete legal support<br>for your move to Portugal</h2>
+            <p>From your first question to your residency card — we handle everything with precision and care.</p>
+        </div>
+        <div class="services-grid">
+            <div class="srv-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Consultation-1.png" alt="" class="srv-icon">
+                <h3 class="h3">Personalized Visa Consultation</h3>
+                <p>A private 45-minute strategy session to assess your eligibility, answer key legal questions, and identify the right visa path — D7 or D8.</p>
+            </div>
+            <div class="srv-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Document.png" alt="" class="srv-icon">
+                <h3 class="h3">Certified Document Translations</h3>
+                <p>Certified translations of all required documents, handled in-house to ensure accuracy and compliance with Portuguese immigration authorities.</p>
+            </div>
+            <div class="srv-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Travel-Visa.png" alt="" class="srv-icon">
+                <h3 class="h3">Full Application Support — D7 & D8</h3>
+                <p>We design your legal relocation plan and manage every step: document preparation, certified translations, and submission to AIMA.</p>
+            </div>
+            <div class="srv-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Law.png" alt="" class="srv-icon">
+                <h3 class="h3">Appeals & Litigation</h3>
+                <p>If your application is refused, we prepare a solid legal appeal. Patrícia takes on challenging cases and consistently delivers results.</p>
+            </div>
+            <div class="srv-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Visa-Stamp.png" alt="" class="srv-icon">
+                <h3 class="h3">Legal Residency & NIF Setup</h3>
+                <p>We secure your Portuguese NIF, open your local bank account, and help you meet all pre-visa requirements including suitable housing.</p>
+            </div>
+            <div class="srv-card reveal">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Courthouse.png" alt="" class="srv-icon">
+                <h3 class="h3">Company Incorporation</h3>
+                <p>For freelancers and business owners. We handle the full legal setup of your Portuguese business structure alongside your relocation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+    <div class="container">
+        <div class="sec-head reveal">
+            <p class="label">How it works</p>
+            <h2 class="h2">Three steps to your<br>new life in Portugal</h2>
+        </div>
+        <div class="steps-row">
+            <div class="step reveal">
+                <div class="step-circle">
+                    <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Consultation-1.png" alt="" class="step-icon">
+                </div>
+                <h3 class="h3">Step 1: Relocation Strategy Session</h3>
+                <p>We begin with a private session to assess your eligibility, answer key legal questions, and outline the best visa path based on your profile — D7 or D8.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-circle">
+                    <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Document.png" alt="" class="step-icon">
+                </div>
+                <h3 class="h3">Step 2: Personalized Legal Plan & Full Application</h3>
+                <p>We design a legal relocation plan tailored to your nationality, income, and goals. Then we handle every step: document preparation, certified translations, and submission.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-circle">
+                    <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Visa-Stamp.png" alt="" class="step-icon">
+                </div>
+                <h3 class="h3">Step 3: Legal Setup & Relocation Support</h3>
+                <p>Before your visa application, we secure your NIF, open a local bank account, and help meet all pre-visa requirements. Once approved, we continue supporting your integration — from tax guidance to residency registration.</p>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:56px;">
+            <a href="#booking" class="btn btn-gold" style="font-size:16px;padding:17px 42px;">Book A Relocation Strategy Session →</a>
+        </div>
+    </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+    <div class="container">
+        <div class="sec-head reveal">
+            <p class="label">★ 4.8 Google Reviews</p>
+            <h2 class="h2">What our clients say</h2>
+            <p>Real reviews from clients who moved to Portugal with Viana Consultancy.</p>
+        </div>
+        <div class="testi-grid">
+            <div class="testi-card reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Excelente profissional me ajudou com minhas necessidades e foi super pontual e competente no que fez. Super recomendo os seus serviços."</p>
+                <div class="testi-author">
+                    <div class="avatar">VG</div>
+                    <div>
+                        <div class="author-name">Vitória Guedes Carvalho</div>
+                        <div class="author-detail">Verified Google Review · Apr 2025</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card reveal">
+                <div class="stars">★★★★★</div>
+                <p>"My friends got TRC within ten days through them. Very friendly and responsible person."</p>
+                <div class="testi-author">
+                    <div class="avatar">KT</div>
+                    <div>
+                        <div class="author-name">Krishnan Thampy</div>
+                        <div class="author-detail">Verified Google Review · Apr 2025</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Work of excellence — as one of her clients, I am 100% happy with her work. I am suggesting her for everyone without any doubt."</p>
+                <div class="testi-author">
+                    <div class="avatar">NJ</div>
+                    <div>
+                        <div class="author-name">Nithin Joseph</div>
+                        <div class="author-detail">Verified Google Review · Apr 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="cta-banner">
+    <div class="cta-photo"></div>
+    <div class="cta-overlay"></div>
+    <div class="container">
+        <div class="cta-body reveal">
+            <p class="label">Ready to begin?</p>
+            <h2 class="h2">Ready to Make Portugal<br><em>Your Home?</em></h2>
+            <p>Avoid costly delays and vague advice. Your relocation deserves more than guesswork — book a legal strategy session and move forward with confidence.</p>
+            <div class="cta-btns">
+                <a href="#booking" class="btn btn-gold" style="font-size:17px;padding:18px 46px;">Book A Relocation Strategy Session →</a>
+            </div>
+            <p class="cta-footnote"><strong>Still figuring things out?</strong> Our <strong>free legal roadmap</strong> is a great place to begin. When the time feels right, we'll be here — ready to guide you with clarity, care, and the law on your side.</p>
+        </div>
+    </div>
+</section>
+
+<!-- BOOKING & CONTACT -->
+<section id="booking">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info reveal">
+                <p class="label">Book your session</p>
+                <h2 class="h2">Start your path<br><em>to Portugal today</em></h2>
+                <p>Book a 45-minute Relocation Strategy Session for €95. The fee is credited toward your full process if you decide to proceed. You'll receive clear guidance on the right visa pathway and a written summary after the session.</p>
+                <ul class="contact-details">
+                    <li>
+                        <div class="c-icon">📧</div>
+                        <div class="c-txt">
+                            <strong>enquiries@vianaconsultancy.com</strong>
+                            <small>Email enquiries welcome</small>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="c-icon">📞</div>
+                        <div class="c-txt">
+                            <strong>+351 960 174 940</strong>
+                            <small>Call to national mobile network</small>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="c-icon">💬</div>
+                        <div class="c-txt">
+                            <strong>WhatsApp available</strong>
+                            <small>Quick questions welcome</small>
+                        </div>
+                    </li>
+                </ul>
+                <div class="contact-cta">
+                    <a href="https://calendly.com/enquiries-vianaconsultancy/relocation-strategy-session"
+                       target="_blank" rel="noopener"
+                       class="btn btn-gold" style="font-size:15px;padding:16px 36px;">
+                        Book via Calendly →
+                    </a>
+                </div>
+            </div>
+            <div class="form-card reveal">
+                <h3 class="h3">Send us a message</h3>
+                <p class="form-sub">We'll get back to you within 24 hours</p>
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div class="field">
+                            <label>First Name *</label>
+                            <input type="text" placeholder="Your first name" required>
+                        </div>
+                        <div class="field">
+                            <label>Last Name *</label>
+                            <input type="text" placeholder="Your last name" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Email *</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="field">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us briefly about your situation — nationality, income type, target visa..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message →</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="https://visa.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-Footer.png"
+                     alt="Viana Consultancy"
+                     class="footer-logo"
+                     onerror="this.style.display='none'">
+                <p>Licensed Portuguese immigration lawyers specializing in D7 & D8 visas. 800+ clients. Personal service. No intermediaries.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Institutional</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#why-us">Why Us</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#services">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Consultation</a></li>
+                    <li><a href="#services">Legal Residency Permits</a></li>
+                    <li><a href="#services">Certified Translations</a></li>
+                    <li><a href="#services">Litigations</a></li>
+                    <li><a href="#services">Visa Application Assistance</a></li>
+                    <li><a href="#services">Company Incorporation</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:enquiries@vianaconsultancy.com">enquiries@vianaconsultancy.com</a></li>
+                    <li><a href="tel:+351960174940">+351 960 174 940</a></li>
+                    <li><a href="https://calendly.com/enquiries-vianaconsultancy/relocation-strategy-session" target="_blank">Book a Session</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Patrícia Viana Lawyer Copyright ® 2025 — All rights reserved.</p>
+            <div class="social-row">
+                <a href="#" class="soc-btn" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" class="soc-btn" aria-label="Twitter / X">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="soc-btn" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/351960174940" class="wa-float" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+        const siblings = el.parentElement.querySelectorAll('.reveal');
+        const idx = Array.from(siblings).indexOf(el);
+        el.style.transitionDelay = `${idx * 0.08}s`;
+        revealObserver.observe(el);
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = e.target.querySelector('.form-submit');
+        btn.textContent = '✓ Message sent! We\'ll be in touch shortly.';
+        btn.style.background = '#25D366';
+        setTimeout(() => {
+            btn.textContent = 'Send Message →';
+            btn.style.background = '';
+        }, 5000);
+    });
+</script>
+</body>
+</html>
