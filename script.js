@@ -172,6 +172,7 @@ function cardWidth() {
 function maxSlide() { return Math.max(0, REVIEWS.length - visibleCount()); }
 
 function goTo(idx) {
+  if (!track) return;
   slideIdx = Math.max(0, Math.min(idx, maxSlide()));
   track.style.transform = `translateX(-${slideIdx * cardWidth()}px)`;
 }
@@ -181,7 +182,9 @@ document.getElementById('nextBtn')?.addEventListener('click', () => goTo(slideId
 window.addEventListener('resize', () => goTo(slideIdx), { passive: true });
 
 // Auto-advance
-setInterval(() => goTo(slideIdx >= maxSlide() ? 0 : slideIdx + 1), 6000);
+if (track) {
+  setInterval(() => goTo(slideIdx >= maxSlide() ? 0 : slideIdx + 1), 6000);
+}
 
 // ---- PHONE FIELD ----
 const phoneInput = document.getElementById('heroPhone');
@@ -250,9 +253,7 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
     .then(res => {
       if (!res.ok) throw new Error();
       form.reset();
-      btn.textContent       = '✓ Check your inbox!';
-      btn.style.background  = '#2d6a4f';
-      btn.style.borderColor = '#2d6a4f';
+      window.location.href = 'thank-you/index.html';
     })
     .catch(() => {
       btn.disabled    = false;

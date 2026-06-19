@@ -661,7 +661,7 @@ ul { list-style: none; }
   display: grid;
   grid-template-columns: 1.5fr 1fr 1.5fr;
   gap: 3rem;
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem 1.5rem;
 }
 .footer-logo { height: 80px; width: auto; margin-bottom: 1.25rem; }
 .footer-contact-link {
@@ -693,17 +693,23 @@ ul { list-style: none; }
 .footer-services { padding: 0; }
 .footer-services li { font-size: .88rem; color: var(--muted); margin-bottom: .45rem; }
 
+.footer-credit { padding: 0 1.5rem 1.75rem; text-align: left; }
+.footer-credit-text { font-size: .82rem; color: var(--muted); }
+.footer-credit-link { color: var(--gold); font-weight: 600; transition: opacity .2s; }
+.footer-credit-link:hover { opacity: .7; }
+
 .footer-bottom { background: var(--gold); padding: 1rem 0; }
 .footer-bottom-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: .75rem;
+  gap: .75rem 1.5rem;
   font-size: .83rem;
   color: var(--navy);
   font-weight: 500;
 }
+.footer-legal-links { display: flex; align-items: center; gap: 2rem; }
 .footer-legal-link { color: var(--navy); font-weight: 600; transition: opacity .2s; }
 .footer-legal-link:hover { opacity: .7; }
 
@@ -739,6 +745,7 @@ ul { list-style: none; }
   .burger { display: flex; }
 
   .stats-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .stat-item { flex-direction: column; align-items: center; text-align: center; justify-content: center; }
   .why-grid { grid-template-columns: 1fr; }
   .process-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
@@ -746,8 +753,13 @@ ul { list-style: none; }
 
   .review-card { flex: 0 0 calc(100% - 0px); }
 
-  .footer-grid { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-  .footer-bottom-inner { flex-direction: column; text-align: center; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.5rem 1rem; text-align: center; }
+  .footer-brand { display: flex; flex-direction: column; align-items: center; }
+  .footer-socials { justify-content: center; }
+  .footer-col nav { align-items: center; }
+  .footer-credit { text-align: center; padding: 0 1.5rem 1.5rem; }
+  .footer-bottom-inner { flex-direction: column; text-align: center; gap: .85rem; }
+  .footer-legal-links { width: 100%; justify-content: space-between; gap: 1rem; }
 
   .download-card { padding: 2rem 1.5rem; }
   .hero-section { padding-bottom: 3.5rem; }
