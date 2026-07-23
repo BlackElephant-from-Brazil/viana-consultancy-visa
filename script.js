@@ -186,52 +186,25 @@ if (track) {
   setInterval(() => goTo(slideIdx >= maxSlide() ? 0 : slideIdx + 1), 6000);
 }
 
-// ---- PHONE FIELD ----
-const phoneInput = document.getElementById('heroPhone');
-let heroIti = null;
-if (phoneInput && window.intlTelInput) {
-  heroIti = window.intlTelInput(phoneInput, {
-    initialCountry: 'pt',
-    separateDialCode: true,
-    utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-  });
-  phoneInput.placeholder = '';
-}
+// ---- CALENDLY BOOKING CONVERSION TRACKING ----
+// Calendly posts a message to the parent window at each step; we only care
+// about the final "booked" event, which we forward to GTM as a dataLayer
+// event so it can drive a Google Ads conversion.
+window.addEventListener('message', function(e) {
+  if (e.origin !== 'https://calendly.com') return;
+  if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
 
-// ---- FORMS ----
-document.getElementById('heroForm')?.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form      = this;
-  const firstName = form.querySelector('[name="firstName"]').value.trim();
-  const lastName  = form.querySelector('[name="lastName"]').value.trim();
-  const email     = form.querySelector('[name="email"]').value.trim();
-  const phone     = heroIti ? heroIti.getNumber() : (phoneInput?.value.trim() || '');
-  const btn       = form.querySelector('button[type="submit"]');
-
-  if (!firstName || !email) return;
-
-  btn.disabled    = true;
-  btn.textContent = 'Sending…';
-
-  fetch('https://black-elephant.app.n8n.cloud/webhook/hero-form', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ name: `${firstName} ${lastName}`.trim(), email, phone })
-  })
-    .then(res => {
-      if (!res.ok) throw new Error();
-      form.reset();
-      btn.textContent = '✓ We\'ll be in touch soon!';
-      btn.style.background  = '#2d6a4f';
-      btn.style.borderColor = '#2d6a4f';
-    })
-    .catch(() => {
-      btn.disabled    = false;
-      btn.textContent = 'Book A Relocation Strategy Session';
-      alert('Something went wrong. Please try again.');
+  if (e.data.event === 'calendly.event_scheduled') {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'calendly_booking_confirmed',
+      calendly_event_uri: e.data.payload?.event?.uri || null,
+      calendly_invitee_uri: e.data.payload?.invitee?.uri || null
     });
+  }
 });
 
+// ---- FORMS ----
 document.getElementById('downloadForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
   const form      = this;

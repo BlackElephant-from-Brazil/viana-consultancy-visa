@@ -119,10 +119,6 @@ ul { list-style: none; }
 .form-input:focus { outline: none; border-color: var(--gold); }
 .form-input::placeholder { color: #aaa; }
 
-/* Phone wrapper - intl-tel-input */
-.phone-wrap { margin-bottom: .75rem; }
-.phone-wrap .iti { width: 100%; }
-
 /* ============================================================
    NAVBAR
    ============================================================ */
