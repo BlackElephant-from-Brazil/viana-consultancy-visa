@@ -388,7 +388,7 @@ ul { list-style: none; }
 .about-img-wrap { display: flex; justify-content: center; }
 .photo-frame { position: relative; max-width: 460px; width: 100%; }
 .photo-frame::after {
-  content: '';
+  content: none;
   position: absolute;
   bottom: -18px; right: -18px;
   width: 90px; height: 90px;
