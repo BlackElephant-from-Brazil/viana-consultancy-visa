@@ -55,7 +55,7 @@ ul { list-style: none; }
   margin: 0 0 1.5rem;
   border-radius: 2px;
 }
-.section-head { margin-bottom: 2.5rem; }
+.section-head { margin-bottom: 1.75rem; }
 .cta-center { text-align: center; margin-top: 2.5rem; }
 
 /* ---- Buttons ---- */
@@ -348,7 +348,7 @@ ul { list-style: none; }
    ============================================================ */
 .stats-section {
   background: #fff;
-  padding: 3.5rem 0;
+  padding: 2.5rem 0 2rem;
   border-bottom: 1px solid #eee;
 }
 .stats-grid {
@@ -377,13 +377,13 @@ ul { list-style: none; }
    ============================================================ */
 .about-section {
   background: var(--light-bg);
-  padding: 5rem 0;
+  padding: 2.5rem 0;
 }
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: start;
 }
 .about-img-wrap { display: flex; justify-content: center; }
 .photo-frame { position: relative; max-width: 460px; width: 100%; }
@@ -402,13 +402,18 @@ ul { list-style: none; }
   width: 100%;
   border-radius: 14px 14px 14px 0;
 }
+.about-img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 25%;
+}
 .about-text p { color: var(--muted); margin-bottom: .85rem; font-size: .97rem; }
 .about-text p strong { color: var(--text); }
 
 /* ============================================================
    REVIEWS
    ============================================================ */
-.reviews-section { background: #fff; padding: 5rem 0; }
+.reviews-section { background: #fff; padding: 2.5rem 0; }
 
 .slider-wrap {
   display: flex;
@@ -484,7 +489,7 @@ ul { list-style: none; }
 /* ============================================================
    WHY US
    ============================================================ */
-.why-section { background: var(--light-bg); padding: 5rem 0; }
+.why-section { background: var(--light-bg); padding: 2.5rem 0; }
 .why-grid {
   display: grid;
   grid-template-columns: repeat(2,1fr);
@@ -510,12 +515,12 @@ ul { list-style: none; }
 /* ============================================================
    TEAM
    ============================================================ */
-.team-section { background: #fff; padding: 5rem 0; }
+.team-section { background: #fff; padding: 2.5rem 0; }
 .team-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
+  align-items: start;
   margin-bottom: 4.5rem;
 }
 .team-row:last-of-type { margin-bottom: 0; }
@@ -544,7 +549,7 @@ ul { list-style: none; }
 /* ============================================================
    PROCESS
    ============================================================ */
-.process-section { background: var(--light-bg); padding: 5rem 0; }
+.process-section { background: var(--light-bg); padding: 2.5rem 0; }
 .process-grid {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -573,7 +578,7 @@ ul { list-style: none; }
 /* ============================================================
    FAQ
    ============================================================ */
-.faq-section { background: var(--light-bg); padding: 5rem 0; }
+.faq-section { background: var(--light-bg); padding: 2.5rem 0; }
 .faq-list {
   display: flex;
   flex-direction: column;
@@ -593,12 +598,12 @@ ul { list-style: none; }
 /* ============================================================
    BOOK NOW (Calendly)
    ============================================================ */
-.book-section { background: #fff; padding: 5rem 0; }
+.book-section { background: #fff; padding: 2.5rem 0; }
 
 /* ============================================================
    DOWNLOAD
    ============================================================ */
-.download-section { background: var(--light-bg); padding: 5rem 0; }
+.download-section { background: var(--light-bg); padding: 2.5rem 0; }
 .download-card {
   background: #fff;
   border-radius: 14px;
@@ -616,7 +621,7 @@ ul { list-style: none; }
 /* ============================================================
    SERVICES
    ============================================================ */
-.services-section { background: #fff; padding: 5rem 0; }
+.services-section { background: #fff; padding: 2.5rem 0; }
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2,1fr);
@@ -649,7 +654,7 @@ ul { list-style: none; }
 .final-cta {
   position: relative;
   background: linear-gradient(135deg, #0A0A0A 0%, var(--navy) 100%);
-  padding: 5.5rem 0;
+  padding: 2.5rem 0;
 }
 .final-cta-grid {
   display: grid;
