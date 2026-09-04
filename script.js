@@ -187,22 +187,14 @@ if (track) {
 }
 
 // ---- CALENDLY BOOKING CONVERSION TRACKING ----
-// Calendly posts a message to the parent window at each step; we only care
-// about the final "booked" event, which we forward to GTM as a dataLayer
-// event so it can drive a Google Ads conversion.
-window.addEventListener('message', function(e) {
-  if (e.origin !== 'https://calendly.com') return;
-  if (!e.data || typeof e.data.event !== 'string' || e.data.event.indexOf('calendly.') !== 0) return;
-
-  if (e.data.event === 'calendly.event_scheduled') {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'calendly_booking_confirmed',
-      calendly_event_uri: e.data.payload?.event?.uri || null,
-      calendly_invitee_uri: e.data.payload?.invitee?.uri || null
-    });
-  }
-});
+// Nothing to do here. The booking conversion is owned by GTM container
+// GTM-5DHSWHDP, which registers its own listener for Calendly's postMessage
+// and fires the Google Ads tag. This file used to push a second dataLayer
+// event that no GTM trigger listened for. Do not re-add it: two listeners
+// pushing the same booking would count the conversion twice.
+//
+// The click id that lets a booking be matched back to its ad click is
+// captured in index.html, before the Calendly widget starts.
 
 // ---- FORMS ----
 document.getElementById('downloadForm')?.addEventListener('submit', function(e) {

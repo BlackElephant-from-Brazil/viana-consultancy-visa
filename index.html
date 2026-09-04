@@ -557,6 +557,54 @@
   </footer>
 
   <!-- Scripts -->
+
+  <!--
+    Google Ads click id, handed to Calendly so a booking can be matched back to
+    the ad click that paid for it.
+
+    Auto-tagging puts ?gclid= on the landing URL (gbraid/wbraid on iOS). We keep
+    it for 90 days, the length of the conversion window, and append it to the
+    Calendly embed URL as salesforce_uuid. Calendly returns that field in the
+    invitee.created webhook, which is what lets the booking be uploaded to
+    Google Ads from the server instead of from the browser. Browser tags are
+    silently dropped by ad blockers; a server upload is not.
+
+    salesforce_uuid is used rather than utm_content so the campaign's own UTM
+    tags stay untouched.
+
+    This runs synchronously, before the async widget.js below, because the
+    widget reads data-url the moment it loads.
+  -->
+  <script>
+    (function () {
+      var STORE = 'va_click_id', MAX_AGE = 90 * 24 * 60 * 60 * 1000;
+      var params = new URLSearchParams(window.location.search);
+      var clickId = params.get('gclid') || params.get('gbraid') || params.get('wbraid');
+
+      try {
+        if (clickId) {
+          window.localStorage.setItem(STORE, JSON.stringify({ id: clickId, t: Date.now() }));
+        } else {
+          var saved = JSON.parse(window.localStorage.getItem(STORE) || 'null');
+          if (saved && saved.id && Date.now() - saved.t < MAX_AGE) clickId = saved.id;
+        }
+      } catch (e) {
+        /* Private mode or storage disabled. The URL value, if any, still works. */
+      }
+
+      if (!clickId) return;
+
+      var widget = document.querySelector('.calendly-inline-widget');
+      if (!widget) return;
+      var url = widget.getAttribute('data-url');
+      if (!url || url.indexOf('salesforce_uuid=') > -1) return;
+      widget.setAttribute(
+        'data-url',
+        url + (url.indexOf('?') > -1 ? '&' : '?') + 'salesforce_uuid=' + encodeURIComponent(clickId)
+      );
+    })();
+  </script>
+
   <script async src="https://assets.calendly.com/assets/external/widget.js"></script>
   <script src="script.js"></script>
 </body>
