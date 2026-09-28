@@ -169,16 +169,36 @@ if (track) {
 // captured in index.html, before the Calendly widget starts.
 
 // ---- CONVERSION EVENTS ----
-// GTM (GTM-5DHSWHDP) sends these to GA4, and Google Ads imports the GA4
-// events as conversions: contact_form_submission when a lead form reaches
-// n8n, ebook_download when the eBook form does. Clicks on the WhatsApp,
-// mailto: and tel: links are caught by GTM's own click triggers, with nothing
-// to do here. The Calendly booking stays with the GTM listener described
-// above: never push a booking event from this file.
+// Sent straight to GA4 (property "Alttavia Relocation", G-5PR16BJBR1, whose
+// tag is in the page head), not through GTM: GTM-5DHSWHDP sits in a Google
+// account we cannot reach. Google Ads imports these GA4 events as
+// conversions, so the names must stay exactly as they are:
+//   whatsapp_click, email_click, phone_number_click  a click on those links
+//   contact_form_submission  a lead form n8n accepted (with form_source)
+//   ebook_download           the eBook form n8n accepted
+// The Calendly booking stays with the GTM listener described above: never
+// send a booking event from this file.
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
 function trackEvent(event, params) {
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(Object.assign({ event: event }, params));
+  window.gtag('event', event, params || {});
 }
+
+// Capture phase, so a handler that stops the click cannot hide it. The
+// WhatsApp URL loses its query: it only carries the prefilled message.
+document.addEventListener('click', e => {
+  const link = e.target.closest && e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href') || '';
+  if (href.includes('wa.me/351960174940')) {
+    trackEvent('whatsapp_click', { link_url: link.href.split('?')[0] });
+  } else if (/^mailto:/i.test(href)) {
+    trackEvent('email_click', { link_url: href });
+  } else if (/^tel:/i.test(href)) {
+    trackEvent('phone_number_click', { link_url: href });
+  }
+}, true);
 
 // ---- FORMS ----
 document.getElementById('downloadForm')?.addEventListener('submit', function(e) {
@@ -202,13 +222,15 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
     .then(res => {
       if (!res.ok) throw new Error();
       form.reset();
+      // The thank-you page is a new page load, which would cut the GA4 hit
+      // short: the redirect waits for gtag to report it sent.
       let left = false;
       const leave = () => {
         if (left) return;
         left = true;
         window.location.href = 'thank-you/index.html';
       };
-      trackEvent('ebook_download', { eventCallback: leave, eventTimeout: 1200 });
+      trackEvent('ebook_download', { event_callback: leave, event_timeout: 1200 });
       setTimeout(leave, 1500);
     })
     .catch(() => {
