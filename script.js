@@ -168,6 +168,18 @@ if (track) {
 // The click id that lets a booking be matched back to its ad click is
 // captured in index.html, before the Calendly widget starts.
 
+// ---- CONVERSION EVENTS ----
+// GTM (GTM-5DHSWHDP) sends these to GA4, and Google Ads imports the GA4
+// events as conversions: contact_form_submission when a lead form reaches
+// n8n, ebook_download when the eBook form does. Clicks on the WhatsApp,
+// mailto: and tel: links are caught by GTM's own click triggers, with nothing
+// to do here. The Calendly booking stays with the GTM listener described
+// above: never push a booking event from this file.
+function trackEvent(event, params) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(Object.assign({ event: event }, params));
+}
+
 // ---- FORMS ----
 document.getElementById('downloadForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -190,7 +202,14 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
     .then(res => {
       if (!res.ok) throw new Error();
       form.reset();
-      window.location.href = 'thank-you/index.html';
+      let left = false;
+      const leave = () => {
+        if (left) return;
+        left = true;
+        window.location.href = 'thank-you/index.html';
+      };
+      trackEvent('ebook_download', { eventCallback: leave, eventTimeout: 1200 });
+      setTimeout(leave, 1500);
     })
     .catch(() => {
       btn.disabled    = false;
@@ -335,6 +354,7 @@ document.querySelectorAll('.lead-form').forEach(form => {
       });
       if (!res.ok) throw new Error();
       done();
+      trackEvent('contact_form_submission', { form_source: form.dataset.source || '' });
     } catch (err) {
       resetWidget();
       fail('Your details did not reach us. Try again, or email us below.');
