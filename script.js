@@ -226,3 +226,82 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
       alert('Something went wrong. Please try again.');
     });
 });
+
+// ---- LEAD FORMS (hero and final CTA) ----
+// Name and email go to n8n, which emails the visitor a thank-you note with
+// Patrícia in copy. The page stays where it is: sending the visitor to a
+// thank-you URL would trip the GTM rule that counts eBook downloads.
+const LEAD_WEBHOOK = 'https://black-elephant.app.n8n.cloud/webhook/visa-contact-form';
+const LEAD_MIN_MS  = 2500;
+const EMAIL_RE     = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]{2,}$/;
+
+document.querySelectorAll('.lead-form').forEach(form => {
+  const startedAt = Date.now();
+  const nameEl    = form.querySelector('[name="name"]');
+  const emailEl   = form.querySelector('[name="email"]');
+  const trapEl    = form.querySelector('[name="company"]');
+  const btn       = form.querySelector('.lead-submit');
+  const status    = form.querySelector('.lead-status');
+  const btnHTML   = btn.innerHTML;
+
+  function say(text, isError) {
+    status.textContent = text;
+    status.classList.toggle('is-error', !!isError);
+  }
+
+  [nameEl, emailEl].forEach(el => el.addEventListener('input', () => {
+    el.removeAttribute('aria-invalid');
+    if (status.classList.contains('is-error')) say('');
+  }));
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name  = nameEl.value.trim().replace(/\s+/g, ' ');
+    const email = emailEl.value.trim();
+    const first = name.split(' ')[0];
+
+    if (!name) {
+      nameEl.setAttribute('aria-invalid', 'true');
+      nameEl.focus();
+      return say('Enter your name.', true);
+    }
+    if (!EMAIL_RE.test(email)) {
+      emailEl.setAttribute('aria-invalid', 'true');
+      emailEl.focus();
+      return say('Enter a valid email address.', true);
+    }
+
+    const done = () => {
+      form.classList.add('is-sent');
+      say(`Thank you, ${first}. Your details reached us and we will be in touch soon.`);
+    };
+
+    // A filled hidden field, or a form sent within 2.5 s of the page loading,
+    // is a bot: it gets the same thank-you and nothing is sent.
+    if (trapEl.value || Date.now() - startedAt < LEAD_MIN_MS) return done();
+
+    btn.disabled    = true;
+    btn.textContent = 'Sending…';
+    say('');
+
+    fetch(LEAD_WEBHOOK, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        name,
+        email,
+        source: form.dataset.source || '',
+        page:   location.origin + location.pathname
+      })
+    })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        done();
+      })
+      .catch(() => {
+        btn.disabled  = false;
+        btn.innerHTML = btnHTML;
+        say('Your details did not reach us. Try again, or email us below.', true);
+      });
+  });
+});
