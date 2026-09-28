@@ -327,6 +327,11 @@ ul { list-style: none; }
 }
 .lead-desc { font-size: .92rem; color: var(--muted); margin-bottom: 1.1rem; }
 .lead-form .form-input { margin-bottom: .7rem; }
+.lead-message {
+  min-height: 124px;
+  line-height: 1.5;
+  resize: vertical;
+}
 .lead-form .form-input:focus { box-shadow: 0 0 0 3px rgba(201,162,39,.22); }
 .lead-form .form-input[aria-invalid="true"] { border-color: #B42318; }
 .lead-submit { margin-top: .15rem; }

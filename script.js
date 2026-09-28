@@ -228,8 +228,8 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
 });
 
 // ---- LEAD FORMS (hero and final CTA) ----
-// Name and email go to n8n, which emails the visitor a thank-you note with
-// Patrícia in copy. The page stays where it is: sending the visitor to a
+// Name, email and message go to n8n, which emails the visitor a thank-you
+// note that quotes the message, with Patrícia in copy. The page stays where it is: sending the visitor to a
 // thank-you URL would trip the GTM rule that counts eBook downloads.
 const LEAD_WEBHOOK = 'https://black-elephant.app.n8n.cloud/webhook/visa-contact-form';
 const LEAD_MIN_MS  = 2500;
@@ -239,6 +239,7 @@ document.querySelectorAll('.lead-form').forEach(form => {
   const startedAt = Date.now();
   const nameEl    = form.querySelector('[name="name"]');
   const emailEl   = form.querySelector('[name="email"]');
+  const msgEl     = form.querySelector('[name="message"]');
   const trapEl    = form.querySelector('[name="company"]');
   const btn       = form.querySelector('.lead-submit');
   const status    = form.querySelector('.lead-status');
@@ -249,7 +250,7 @@ document.querySelectorAll('.lead-form').forEach(form => {
     status.classList.toggle('is-error', !!isError);
   }
 
-  [nameEl, emailEl].forEach(el => el.addEventListener('input', () => {
+  [nameEl, emailEl, msgEl].forEach(el => el.addEventListener('input', () => {
     el.removeAttribute('aria-invalid');
     if (status.classList.contains('is-error')) say('');
   }));
@@ -257,7 +258,8 @@ document.querySelectorAll('.lead-form').forEach(form => {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const name  = nameEl.value.trim().replace(/\s+/g, ' ');
-    const email = emailEl.value.trim();
+    const email   = emailEl.value.trim();
+    const message = msgEl.value.trim();
     const first = name.split(' ')[0];
 
     if (!name) {
@@ -269,6 +271,11 @@ document.querySelectorAll('.lead-form').forEach(form => {
       emailEl.setAttribute('aria-invalid', 'true');
       emailEl.focus();
       return say('Enter a valid email address.', true);
+    }
+    if (!message) {
+      msgEl.setAttribute('aria-invalid', 'true');
+      msgEl.focus();
+      return say('Tell us what you are looking for.', true);
     }
 
     const done = () => {
@@ -290,6 +297,7 @@ document.querySelectorAll('.lead-form').forEach(form => {
       body:    JSON.stringify({
         name,
         email,
+        message,
         source: form.dataset.source || '',
         page:   location.origin + location.pathname
       })
