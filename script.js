@@ -3,35 +3,7 @@
    ============================================================ */
 
 // ---- NAVBAR ----
-const navbar  = document.getElementById('navbar');
-const burger  = document.getElementById('burgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-const mobileClose = document.getElementById('mobileClose');
-
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-function openMenu() {
-  burger.classList.add('open');
-  burger.setAttribute('aria-expanded', 'true');
-  mobileMenu.classList.add('open');
-  mobileMenu.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
-function closeMenu() {
-  burger.classList.remove('open');
-  burger.setAttribute('aria-expanded', 'false');
-  mobileMenu.classList.remove('open');
-  mobileMenu.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
-
-burger.addEventListener('click', () => {
-  burger.classList.contains('open') ? closeMenu() : openMenu();
-});
-mobileClose?.addEventListener('click', closeMenu);
-document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', closeMenu));
+// The Liquid Glass nav runs on its own, in liquid-glass-nav.js.
 
 // ---- SMOOTH SCROLL ----
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -196,6 +168,38 @@ if (track) {
 // The click id that lets a booking be matched back to its ad click is
 // captured in index.html, before the Calendly widget starts.
 
+// ---- CONVERSION EVENTS ----
+// Sent straight to GA4 (property "Alttavia Relocation", G-5PR16BJBR1, whose
+// tag is in the page head), not through GTM: GTM-5DHSWHDP sits in a Google
+// account we cannot reach. Google Ads imports these GA4 events as
+// conversions, so the names must stay exactly as they are:
+//   whatsapp_click, email_click, phone_number_click  a click on those links
+//   contact_form_submission  a lead form n8n accepted (with form_source)
+//   ebook_download           the eBook form n8n accepted
+// The Calendly booking stays with the GTM listener described above: never
+// send a booking event from this file.
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+function trackEvent(event, params) {
+  window.gtag('event', event, params || {});
+}
+
+// Capture phase, so a handler that stops the click cannot hide it. The
+// WhatsApp URL loses its query: it only carries the prefilled message.
+document.addEventListener('click', e => {
+  const link = e.target.closest && e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href') || '';
+  if (href.includes('wa.me/351960174940')) {
+    trackEvent('whatsapp_click', { link_url: link.href.split('?')[0] });
+  } else if (/^mailto:/i.test(href)) {
+    trackEvent('email_click', { link_url: href });
+  } else if (/^tel:/i.test(href)) {
+    trackEvent('phone_number_click', { link_url: href });
+  }
+}, true);
+
 // ---- FORMS ----
 document.getElementById('downloadForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -218,11 +222,164 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
     .then(res => {
       if (!res.ok) throw new Error();
       form.reset();
-      window.location.href = 'thank-you/index.html';
+      // The thank-you page is a new page load, which would cut the GA4 hit
+      // short: the redirect waits for gtag to report it sent.
+      let left = false;
+      const leave = () => {
+        if (left) return;
+        left = true;
+        window.location.href = 'thank-you/index.html';
+      };
+      trackEvent('ebook_download', { event_callback: leave, event_timeout: 1200 });
+      setTimeout(leave, 1500);
     })
     .catch(() => {
       btn.disabled    = false;
       btn.textContent = 'Download';
       alert('Something went wrong. Please try again.');
     });
+});
+
+// ---- LEAD FORMS (hero and final CTA) ----
+// Name, email and message go to n8n, which emails the visitor a thank-you
+// note that quotes the message, with Patrícia in copy. The page stays where
+// it is: sending the visitor to a thank-you URL would trip the GTM rule that
+// counts eBook downloads.
+//
+// Each form carries a Cloudflare Turnstile widget (the check against robots).
+// It stays invisible unless Cloudflare wants the visitor to click, and its
+// token goes with the form: n8n checks it with Cloudflare before sending any
+// email, so a script posting straight to the webhook gets nothing out. The
+// Turnstile script is loaded after this file and calls onTurnstileLoad.
+const LEAD_WEBHOOK       = 'https://black-elephant.app.n8n.cloud/webhook/visa-contact-form';
+const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
+const LEAD_MIN_MS        = 2500;
+const TOKEN_WAIT_MS      = 8000;
+const EMAIL_RE           = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]{2,}$/;
+
+const turnstileReady = new Promise(resolve => { window.onTurnstileLoad = resolve; });
+
+document.querySelectorAll('.lead-form').forEach(form => {
+  const startedAt = Date.now();
+  const nameEl    = form.querySelector('[name="name"]');
+  const emailEl   = form.querySelector('[name="email"]');
+  const msgEl     = form.querySelector('[name="message"]');
+  const trapEl    = form.querySelector('[name="company"]');
+  const box       = form.querySelector('.lead-turnstile');
+  const btn       = form.querySelector('.lead-submit');
+  const status    = form.querySelector('.lead-status');
+  const btnHTML   = btn.innerHTML;
+
+  function say(text, isError) {
+    status.textContent = text;
+    status.classList.toggle('is-error', !!isError);
+  }
+
+  [nameEl, emailEl, msgEl].forEach(el => el.addEventListener('input', () => {
+    el.removeAttribute('aria-invalid');
+    if (status.classList.contains('is-error')) say('');
+  }));
+
+  // Turnstile: one widget per form. A token is single use and expires after
+  // five minutes, so it is dropped on expiry and after every attempt.
+  let widgetId = null;
+  let token    = '';
+  let waiters  = [];
+  const settle = value => {
+    token = value;
+    if (value) waiters.splice(0).forEach(resolve => resolve(value));
+  };
+  turnstileReady.then(() => {
+    widgetId = window.turnstile.render(box, {
+      sitekey:            TURNSTILE_SITE_KEY,
+      action:             form.dataset.source || 'lead',
+      appearance:         'interaction-only',
+      size:               box.clientWidth >= 300 ? 'flexible' : 'compact',
+      theme:              'light',
+      callback:           settle,
+      'expired-callback': () => settle(''),
+      'error-callback':   () => settle('')
+    });
+  });
+  const waitForToken = () => token
+    ? Promise.resolve(token)
+    : new Promise(resolve => {
+        waiters.push(resolve);
+        setTimeout(() => resolve(''), TOKEN_WAIT_MS);
+      });
+  const resetWidget = () => {
+    token = '';
+    if (widgetId !== null) window.turnstile.reset(widgetId);
+  };
+
+  function fail(text) {
+    btn.disabled  = false;
+    btn.innerHTML = btnHTML;
+    say(text, true);
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (btn.disabled) return;
+    const name    = nameEl.value.trim().replace(/\s+/g, ' ');
+    const email   = emailEl.value.trim();
+    const message = msgEl.value.trim();
+    const first   = name.split(' ')[0];
+
+    if (!name) {
+      nameEl.setAttribute('aria-invalid', 'true');
+      nameEl.focus();
+      return say('Enter your name.', true);
+    }
+    if (!EMAIL_RE.test(email)) {
+      emailEl.setAttribute('aria-invalid', 'true');
+      emailEl.focus();
+      return say('Enter a valid email address.', true);
+    }
+    if (!message) {
+      msgEl.setAttribute('aria-invalid', 'true');
+      msgEl.focus();
+      return say('Tell us what you are looking for.', true);
+    }
+
+    const done = () => {
+      form.classList.add('is-sent');
+      say(`Thank you, ${first}. Your details reached us and we will be in touch soon.`);
+    };
+
+    // A filled hidden field, or a form sent within 2.5 s of the page loading,
+    // is a bot: it gets the same thank-you and nothing is sent.
+    if (trapEl.value || Date.now() - startedAt < LEAD_MIN_MS) return done();
+
+    btn.disabled    = true;
+    btn.textContent = 'Sending…';
+    say('');
+
+    const verified = await waitForToken();
+    if (!verified) {
+      resetWidget();
+      return fail('The security check did not finish. Try again, or email us below.');
+    }
+
+    try {
+      const res = await fetch(LEAD_WEBHOOK, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          name,
+          email,
+          message,
+          source:    form.dataset.source || '',
+          page:      location.origin + location.pathname,
+          turnstile: verified
+        })
+      });
+      if (!res.ok) throw new Error();
+      done();
+      trackEvent('contact_form_submission', { form_source: form.dataset.source || '' });
+    } catch (err) {
+      resetWidget();
+      fail('Your details did not reach us. Try again, or email us below.');
+    }
+  });
 });

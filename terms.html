@@ -9,6 +9,17 @@
 
   <!-- GTM -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5DHSWHDP');</script>
+  <!-- Google Analytics 4, property "Alttavia Relocation". Loaded here and not
+       through GTM, because GTM-5DHSWHDP sits in a Google account we cannot
+       reach. script.js sends the conversion events with gtag(); Google Ads
+       imports them from GA4. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5PR16BJBR1');
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" href="https://visas.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8-1-150x138.png" sizes="32x32">
@@ -18,11 +29,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="liquid-glass-nav.css">
   <link rel="stylesheet" href="style.css">
   <style>
     .legal-hero {
       background: var(--navy);
-      padding: 7rem 0 3.5rem;
+      padding: 3.5rem 0 3.5rem;
       text-align: center;
     }
     .legal-hero h1 {
@@ -79,36 +91,60 @@
   <!-- GTM noscript -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DHSWHDP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- ===== NAVBAR ===== -->
-  <header id="navbar" class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="logo-link">
-        <img src="assets/images/Logo-8.png" alt="Viana Consultancy" class="logo-img">
-      </a>
-      <nav class="nav-menu" aria-label="Main navigation">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="index.html#reviews" class="nav-link">Reviews</a>
-        <a href="index.html#why-us" class="nav-link">Why us</a>
-        <a href="index.html#team" class="nav-link">Team</a>
-        <a href="index.html#process" class="nav-link">Process</a>
-        <a href="index.html#services" class="nav-link">Services</a>
+  <!-- ===== NAVBAR (Liquid Glass) =====
+    At the top of the page a full-width bar; once the page scrolls, a
+    floating glass island that reads what is under it. liquid-glass-nav.js
+    drives the data-* attributes on .lgn-shell; liquid-glass-nav.css holds the
+    material. The header must stay a direct child of body (it is sticky), and
+    neither it nor any ancestor may get opacity, filter, transform or mask:
+    each one cuts the glass off from the page. -->
+  <header id="navbar" class="lgn" style="--lgn-blur: 2px; --lgn-tint: 14%">
+    <div class="lgn-shell" data-detached="false" data-open="false" data-tone="light">
+      <div class="lgn-glass" aria-hidden="true"></div>
+      <div class="lgn-sheen" aria-hidden="true"></div>
+      <!-- The refracting rim, used by desktop Chromium only. The script sets
+           its values; these are the attached bar's look (blur 12px). -->
+      <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="lgn-lens" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feImage id="lgn-lens-map" preserveAspectRatio="none" result="map"/>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="soft0"/>
+            <feComponentTransfer in="soft0" result="soft"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
+            <feDisplacementMap in="soft" in2="map" scale="0" xChannelSelector="R" yChannelSelector="G" result="lensed"/>
+            <feGaussianBlur in="lensed" stdDeviation="11.906" result="frost"/>
+            <feComponentTransfer in="frost"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
+          </filter>
+        </defs>
+      </svg>
+
+      <div class="lgn-row">
+        <div class="lgn-left">
+          <a href="index.html" class="lgn-home" aria-label="Viana Consultancy, home page">
+            <span class="lgn-mark" data-invert><img src="assets/images/Logo-8.png" alt="" width="251" height="138"></span>
+          </a>
+          <nav class="lgn-links" aria-label="Main navigation">
+            <a href="index.html#reviews" class="lgn-link"><span>Reviews</span></a>
+            <a href="index.html#why-us" class="lgn-link"><span>Why us</span></a>
+            <a href="index.html#team" class="lgn-link"><span>Team</span></a>
+            <a href="index.html#process" class="lgn-link"><span>Process</span></a>
+            <a href="index.html#services" class="lgn-link"><span>Services</span></a>
+          </nav>
+        </div>
+        <a href="index.html#book-now" class="lgn-cta">Book a session</a>
+        <button type="button" class="lgn-toggle" aria-expanded="false" aria-controls="lgn-mobile" data-menu="Menu" data-close="Close">Menu</button>
+      </div>
+
+      <nav id="lgn-mobile" class="lgn-mobile" aria-label="Main navigation" hidden>
+        <a href="index.html" class="lgn-big">Home</a>
+        <a href="index.html#reviews" class="lgn-big">Reviews</a>
+        <a href="index.html#why-us" class="lgn-big">Why us</a>
+        <a href="index.html#team" class="lgn-big">Team</a>
+        <a href="index.html#process" class="lgn-big">Process</a>
+        <a href="index.html#services" class="lgn-big">Services</a>
+        <a href="index.html#book-now" class="lgn-cta-block">Book a session</a>
       </nav>
-      <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
-
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&#x2715;</button>
-    <a href="index.html" class="mobile-nav-link">Home</a>
-    <a href="index.html#reviews" class="mobile-nav-link">Reviews</a>
-    <a href="index.html#why-us" class="mobile-nav-link">Why us</a>
-    <a href="index.html#team" class="mobile-nav-link">Team</a>
-    <a href="index.html#process" class="mobile-nav-link">Process</a>
-    <a href="index.html#services" class="mobile-nav-link">Services</a>
-  </div>
 
   <!-- ===== HERO ===== -->
   <section class="legal-hero">
@@ -342,6 +378,7 @@
     </div>
   </footer>
 
+  <script src="liquid-glass-nav.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

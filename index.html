@@ -82,6 +82,17 @@
 
   <!-- GTM -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5DHSWHDP');</script>
+  <!-- Google Analytics 4, property "Alttavia Relocation". Loaded here and not
+       through GTM, because GTM-5DHSWHDP sits in a Google account we cannot
+       reach. script.js sends the conversion events with gtag(); Google Ads
+       imports them from GA4. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5PR16BJBR1');
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" href="https://visas.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8-1-150x138.png" sizes="32x32">
@@ -93,68 +104,149 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="liquid-glass-nav.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- GTM noscript -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DHSWHDP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- ===== NAVBAR ===== -->
-  <header id="navbar" class="navbar">
-    <div class="container nav-inner">
-      <a href="#home" class="logo-link">
-        <img src="assets/images/Logo-8.png" alt="Viana Consultancy" class="logo-img">
-      </a>
-      <nav class="nav-menu" aria-label="Main navigation">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#reviews" class="nav-link">Reviews</a>
-        <a href="#why-us" class="nav-link">Why us</a>
-        <a href="#team" class="nav-link">Team</a>
-        <a href="#process" class="nav-link">Process</a>
-        <a href="#services" class="nav-link">Services</a>
+  <!-- ===== NAVBAR (Liquid Glass) =====
+    At the top of the page a full-width bar; once the page scrolls, a
+    floating glass island that reads what is under it. liquid-glass-nav.js
+    drives the data-* attributes on .lgn-shell; liquid-glass-nav.css holds the
+    material. The header must stay a direct child of body (it is sticky), and
+    neither it nor any ancestor may get opacity, filter, transform or mask:
+    each one cuts the glass off from the page. -->
+  <header id="navbar" class="lgn" style="--lgn-blur: 2px; --lgn-tint: 14%">
+    <div class="lgn-shell" data-detached="false" data-open="false" data-tone="light">
+      <div class="lgn-glass" aria-hidden="true"></div>
+      <div class="lgn-sheen" aria-hidden="true"></div>
+      <!-- The refracting rim, used by desktop Chromium only. The script sets
+           its values; these are the attached bar's look (blur 12px). -->
+      <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="lgn-lens" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feImage id="lgn-lens-map" preserveAspectRatio="none" result="map"/>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="soft0"/>
+            <feComponentTransfer in="soft0" result="soft"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
+            <feDisplacementMap in="soft" in2="map" scale="0" xChannelSelector="R" yChannelSelector="G" result="lensed"/>
+            <feGaussianBlur in="lensed" stdDeviation="11.906" result="frost"/>
+            <feComponentTransfer in="frost"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
+          </filter>
+        </defs>
+      </svg>
+
+      <div class="lgn-row">
+        <div class="lgn-left">
+          <a href="#home" class="lgn-home" aria-label="Viana Consultancy, back to the top">
+            <span class="lgn-mark" data-invert><img src="assets/images/Logo-8.png" alt="" width="251" height="138"></span>
+          </a>
+          <nav class="lgn-links" aria-label="Main navigation">
+            <a href="#reviews" class="lgn-link"><span>Reviews</span></a>
+            <a href="#why-us" class="lgn-link"><span>Why us</span></a>
+            <a href="#team" class="lgn-link"><span>Team</span></a>
+            <a href="#process" class="lgn-link"><span>Process</span></a>
+            <a href="#services" class="lgn-link"><span>Services</span></a>
+          </nav>
+        </div>
+        <a href="#book-now" class="lgn-cta">Book a session</a>
+        <button type="button" class="lgn-toggle" aria-expanded="false" aria-controls="lgn-mobile" data-menu="Menu" data-close="Close">Menu</button>
+      </div>
+
+      <nav id="lgn-mobile" class="lgn-mobile" aria-label="Main navigation" hidden>
+        <a href="#home" class="lgn-big">Home</a>
+        <a href="#reviews" class="lgn-big">Reviews</a>
+        <a href="#why-us" class="lgn-big">Why us</a>
+        <a href="#team" class="lgn-big">Team</a>
+        <a href="#process" class="lgn-big">Process</a>
+        <a href="#services" class="lgn-big">Services</a>
+        <a href="#book-now" class="lgn-cta-block">Book a session</a>
       </nav>
-      <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&#x2715;</button>
-    <a href="#home" class="mobile-nav-link">Home</a>
-    <a href="#reviews" class="mobile-nav-link">Reviews</a>
-    <a href="#why-us" class="mobile-nav-link">Why us</a>
-    <a href="#team" class="mobile-nav-link">Team</a>
-    <a href="#process" class="mobile-nav-link">Process</a>
-    <a href="#services" class="mobile-nav-link">Services</a>
-  </div>
-
-  <!-- ===== ABOVE FOLD (hero + stats = 100vh) ===== -->
-  <div class="above-fold">
-
   <!-- ===== HERO ===== -->
+  <!--
+    The photo is the thesis of the page: the lawyer herself, in her robe, in
+    Lisbon. On desktop she stands on the doorway's axis, in the space between
+    the headline and the form. On phones the portrait fills the top and the
+    text starts over the black robe, which carries white type on its own.
+  -->
   <section id="home" class="hero-section">
+    <picture class="hero-media">
+      <source media="(max-width: 768px)" srcset="assets/images/patricia-hero-sm.webp" width="720" height="1081">
+      <img src="assets/images/patricia-hero.webp" alt="Patrícia Viana, immigration lawyer, in her lawyer's robe in Lisbon" width="1066" height="1600" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="hero-shade" aria-hidden="true"></div>
+
     <div class="container hero-grid">
       <div class="hero-body">
-        <p class="hero-label">★ 4.8 Excellent Google Reviews</p>
-        <h1 class="hero-title">Move to Portugal<br><em>with Legal Precision</em></h1>
-        <p class="hero-sub">
-          Designed for remote workers, retirees, and professionals with proven international income, guided by <strong>licensed immigration lawyers</strong>.
+        <p class="hero-label">
+          <span class="hero-stars" aria-hidden="true">★★★★★</span>
+          <span>4.8 on Google · 63 reviews</span>
         </p>
-        <div class="offer-badge">
-          <span class="offer-price">€95</span>
-          <span class="offer-copy">45-min Relocation Strategy Session, credited toward your full process, plus a written summary after the call.</span>
-        </div>
-        <div class="hero-ctas">
-          <a href="#book-now" class="btn-gold hero-cta-btn">Book A Relocation Strategy Session →</a>
-        </div>
-        <p class="hero-trust">⚖ Dual-licensed attorney, Portugal &amp; Brazil</p>
+        <h1 class="hero-title">Move to Portugal.<br><em>Work Directly With a Licensed Immigration Lawyer.</em></h1>
+        <p class="hero-sub">
+          You are not hiring a relocation company that needs to find a lawyer for your case. <strong>You are hiring the lawyer directly.</strong>
+        </p>
       </div>
-      <div class="hero-photo-wrap">
-        <div class="photo-frame frame-right">
-          <img src="assets/images/viana-1.webp" alt="Patrícia Viana, Founder &amp; Lead Attorney of Viana Consultancy" class="hero-photo" width="1600" height="1067">
+
+      <div class="lead-card hero-lead">
+        <h2 class="lead-title">Speak with a lawyer</h2>
+        <p class="lead-desc">Leave your details. We'll reply soon.</p>
+        <form class="lead-form" data-source="hero" novalidate>
+          <label class="sr-only" for="hero-name">Your name</label>
+          <input id="hero-name" class="form-input" type="text" name="name" placeholder="Your name" autocomplete="name" required>
+          <label class="sr-only" for="hero-email">Your email</label>
+          <input id="hero-email" class="form-input" type="email" name="email" placeholder="Your email" autocomplete="email" required>
+          <label class="sr-only" for="hero-message">Your message</label>
+          <textarea id="hero-message" class="form-input lead-message" name="message" rows="4" maxlength="2000" placeholder="Tell us what you are looking for: which visa, when you plan to move, and who is coming with you" required></textarea>
+          <div class="lead-hp" aria-hidden="true">
+            <label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <div class="lead-turnstile"></div>
+          <button type="submit" class="btn-gold btn-block lead-submit">
+            Talk to us
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </button>
+          <p class="lead-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="lead-or"><span>or</span></div>
+        <p class="lead-mail">Send us an email to <a class="lead-mail-link" href="mailto:enquiries@vianaconsultancy.com">enquiries@vianaconsultancy.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section id="reviews" class="reviews-section">
+    <div class="container">
+      <div class="section-head fade-in">
+        <h2 class="section-title centered">What <span class="gold">Our Clients</span> Say</h2>
+        <div class="divider-center"></div>
+      </div>
+      <a class="rating-summary fade-in" href="https://www.google.com/maps/search/?api=1&amp;query=Patr%C3%ADcia%20Viana%20Lawyer%20Lisboa" target="_blank" rel="noopener noreferrer">
+        <svg class="rating-g" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        <span class="rating-score">4.8</span>
+        <span class="rating-stars" aria-hidden="true">★★★★★</span>
+        <span class="rating-count">Based on <strong>63 Google reviews</strong></span>
+        <span class="sr-only">(opens Google in a new tab)</span>
+      </a>
+      <div class="slider-wrap">
+        <button class="slider-btn prev" id="prevBtn" aria-label="Previous reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="slider-viewport">
+          <div class="slider-track" id="sliderTrack"></div>
         </div>
+        <button class="slider-btn next" id="nextBtn" aria-label="Next reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -192,8 +284,6 @@
     </div>
   </section>
 
-  </div><!-- /.above-fold -->
-
   <!-- ===== ABOUT ===== -->
   <section class="about-section">
     <div class="container about-grid">
@@ -210,31 +300,6 @@
         <p>We support clients applying for the <strong>D7 Visa</strong> (passive income) and <strong>D8 Visa</strong> (digital nomads), guiding each step from planning to arrival.</p>
         <p>Over 800 clients have trusted us to build their path to Portugal with clarity, care, and confidence.</p>
         <p>That's why even other relocation firms come to us. Why not start with the team they trust?</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== REVIEWS ===== -->
-  <section id="reviews" class="reviews-section">
-    <div class="container">
-      <div class="section-head fade-in">
-        <h2 class="section-title centered">What <span class="gold">Our Clients</span> Say</h2>
-        <div class="divider-center"></div>
-      </div>
-      <div class="slider-wrap">
-        <button class="slider-btn prev" id="prevBtn" aria-label="Previous reviews">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="slider-viewport">
-          <div class="slider-track" id="sliderTrack"></div>
-        </div>
-        <button class="slider-btn next" id="nextBtn" aria-label="Next reviews">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-      <div class="trustindex-badge">
-        Verified by Trustindex
-        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
       </div>
     </div>
   </section>
@@ -316,7 +381,7 @@
         </div>
         <div class="team-photo-wrap fade-in" style="--d:.15s">
           <div class="photo-frame frame-right">
-            <img src="assets/images/Group-7.webp" alt="Patrícia Viana, Founder & Lead Attorney" class="team-photo" loading="lazy" width="850" height="957">
+            <img src="assets/images/patricia-team.webp" alt="Patrícia Viana, Founder &amp; Lead Attorney" class="team-photo team-photo-patricia" loading="lazy" width="920" height="1381">
           </div>
         </div>
       </div>
@@ -410,6 +475,7 @@
     <div class="container">
       <div class="section-head fade-in">
         <h2 class="section-title centered">Book A <span class="gold">Relocation Strategy Session</span></h2>
+        <p class="section-sub">A <strong class="hl">45-minute</strong> session with a licensed lawyer for <strong class="hl">€95</strong>, credited toward your full process, plus a written summary after the call.</p>
         <div class="divider-center"></div>
       </div>
       <div class="calendly-inline-widget" data-url="https://calendly.com/enquiries-vianaconsultancy/relocation-strategy-session" style="min-width:320px;height:700px;"></div>
@@ -484,15 +550,34 @@
       <div class="final-cta-text">
         <h2 class="final-title fade-in">Ready to Make Portugal Your Home?</h2>
         <p class="fade-in" style="--d:.1s">Avoid costly delays and vague advice. Your relocation deserves more than guesswork. Book a legal strategy session and move forward with confidence.</p>
-        <a href="#book-now" class="btn-gold fade-in" style="--d:.2s">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          Book A Relocation Strategy Session
-        </a>
+        <div class="lead-card final-lead fade-in" style="--d:.2s">
+          <h3 class="lead-title">Speak with a lawyer</h3>
+          <p class="lead-desc">Leave your details. We'll reply soon.</p>
+          <form class="lead-form" data-source="final-cta" novalidate>
+            <label class="sr-only" for="final-name">Your name</label>
+            <input id="final-name" class="form-input" type="text" name="name" placeholder="Your name" autocomplete="name" required>
+            <label class="sr-only" for="final-email">Your email</label>
+            <input id="final-email" class="form-input" type="email" name="email" placeholder="Your email" autocomplete="email" required>
+            <label class="sr-only" for="final-message">Your message</label>
+            <textarea id="final-message" class="form-input lead-message" name="message" rows="4" maxlength="2000" placeholder="Tell us what you are looking for: which visa, when you plan to move, and who is coming with you" required></textarea>
+            <div class="lead-hp" aria-hidden="true">
+              <label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <div class="lead-turnstile"></div>
+            <button type="submit" class="btn-gold btn-block lead-submit">
+              Talk to us
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </button>
+            <p class="lead-status" role="status" aria-live="polite"></p>
+          </form>
+          <div class="lead-or"><span>or</span></div>
+          <p class="lead-mail">Send us an email to <a class="lead-mail-link" href="mailto:enquiries@vianaconsultancy.com">enquiries@vianaconsultancy.com</a></p>
+        </div>
         <p class="final-sub fade-in" style="--d:.3s"><strong>Still figuring things out?</strong> Our <strong>free legal roadmap</strong> is a great place to begin. When the time feels right, we'll be here, ready to guide you with clarity, care, and the law on your side.</p>
       </div>
       <div class="final-cta-photo-wrap fade-in" style="--d:.15s">
         <div class="photo-frame frame-right">
-          <img src="assets/images/viana-2.webp" alt="Patrícia Viana looking out over Lisbon, ready to help you relocate to Portugal" class="final-cta-photo" loading="lazy" width="1600" height="863">
+          <img src="assets/images/patricia-cta.webp" alt="Patrícia Viana, immigration lawyer, at her office in Lisbon" class="final-cta-photo" loading="lazy" width="1000" height="763">
         </div>
       </div>
     </div>
@@ -556,6 +641,11 @@
     </div>
   </footer>
 
+  <!-- ===== WHATSAPP (floating) ===== -->
+  <a class="wa-float" href="https://wa.me/351960174940?text=Hello%20Patr%C3%ADcia%2C%20I%20found%20your%20website%20and%20would%20like%20to%20know%20more%20about%20moving%20to%20Portugal%20with%20a%20D7%20or%20D8%20visa." target="_blank" rel="noopener noreferrer" aria-label="Message Patrícia on WhatsApp (opens in a new tab)">
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 3C8.86 3 3.03 8.82 3.03 16c0 2.3.6 4.53 1.74 6.5L3 29l6.68-1.75A13 13 0 0 0 16.04 29C23.2 29 29 23.18 29 16S23.2 3 16.04 3Zm0 23.8c-2.02 0-3.99-.54-5.72-1.57l-.41-.24-3.96 1.04 1.06-3.86-.27-.4A10.75 10.75 0 0 1 5.23 16c0-5.96 4.85-10.8 10.81-10.8 5.95 0 10.78 4.84 10.78 10.8 0 5.96-4.83 10.8-10.78 10.8Zm5.92-8.08c-.32-.16-1.92-.95-2.22-1.06-.3-.11-.51-.16-.73.16-.22.32-.84 1.06-1.03 1.28-.19.22-.38.24-.7.08-.32-.16-1.36-.5-2.6-1.6-.96-.86-1.6-1.91-1.8-2.23-.19-.32-.02-.5.14-.66.15-.14.32-.38.48-.57.16-.19.21-.32.32-.54.11-.22.05-.4-.03-.57-.08-.16-.73-1.76-1-2.4-.26-.63-.53-.55-.73-.56h-.62c-.22 0-.57.08-.86.4-.3.32-1.13 1.1-1.13 2.7 0 1.58 1.16 3.12 1.32 3.33.16.22 2.28 3.48 5.52 4.88.77.33 1.37.53 1.84.68.77.25 1.48.21 2.03.13.62-.09 1.92-.78 2.19-1.54.27-.76.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z"/></svg>
+  </a>
+
   <!-- Scripts -->
 
   <!--
@@ -606,6 +696,10 @@
   </script>
 
   <script async src="https://assets.calendly.com/assets/external/widget.js"></script>
+  <script src="liquid-glass-nav.js"></script>
   <script src="script.js"></script>
+  <!-- Cloudflare Turnstile, after script.js, which defines onTurnstileLoad. Load it from
+       Cloudflare only: a copied or cached api.js breaks when Cloudflare updates it. -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&amp;onload=onTurnstileLoad" async defer></script>
 </body>
 </html>
