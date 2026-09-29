@@ -163,11 +163,11 @@ ul { list-style: none; }
 
 /* ============================================================
    HERO
-   The photo carries the page: Patrícia in her robe at a Lisbon
-   doorway. On wide screens the portrait stands as a panel in the
-   middle of the dark field, the text on its left and the form on
-   its right, so she sits in the gap. Below 1100px it goes to the
-   top and the text starts over the black robe.
+   The photo carries the page: Patrícia, smiling, in Lisbon. On
+   wide screens the portrait stands as a panel in the middle of the
+   dark field, the text on its left and the form on its right, so
+   she sits in the gap. Below 1100px it goes to the top and the
+   text starts over her navy blazer.
    ============================================================ */
 .hero-section {
   position: relative;
@@ -558,7 +558,7 @@ ul { list-style: none; }
 .team-text p strong { color: var(--text); }
 .team-photo-wrap { display: flex; justify-content: center; }
 .team-photo { border-radius: 14px 14px 14px 0; }
-.team-photo-patricia { aspect-ratio: 850 / 957; object-fit: cover; object-position: center 24%; }
+.team-photo-patricia { aspect-ratio: 850 / 957; object-fit: cover; object-position: center; }
 
 /* Right accent (Patricia) */
 .frame-right::after {
@@ -710,9 +710,9 @@ ul { list-style: none; }
 .final-cta-photo-wrap .photo-frame { max-width: 440px; }
 .final-cta-photo {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center;
   border-radius: 14px 14px 14px 0;
 }
 .final-cta-text { max-width: 560px; }
