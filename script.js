@@ -252,7 +252,7 @@ document.getElementById('downloadForm')?.addEventListener('submit', function(e) 
 // email, so a script posting straight to the webhook gets nothing out. The
 // Turnstile script is loaded after this file and calls onTurnstileLoad.
 const LEAD_WEBHOOK       = 'https://black-elephant.app.n8n.cloud/webhook/visa-contact-form';
-const TURNSTILE_SITE_KEY = '1x00000000000000000000AA';
+const TURNSTILE_SITE_KEY = '0x4AAAAAAFIy-WPSxHbaLcXE';
 const LEAD_MIN_MS        = 2500;
 const TOKEN_WAIT_MS      = 8000;
 const EMAIL_RE           = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]{2,}$/;
