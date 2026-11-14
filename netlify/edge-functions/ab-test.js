@@ -47,5 +47,5 @@ export default async (request, context) => {
 
 export const config = {
   path: '/',
-  method: ['GET', 'HEAD'],
+  method: 'GET',
 };
