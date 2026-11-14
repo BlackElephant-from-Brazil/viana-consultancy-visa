@@ -109,7 +109,7 @@ function loadTurnstile() {
       sitekey: SITE_KEY,
       action: form.dataset.source || 'page-b',
       appearance: 'interaction-only',
-      size: checkBox.clientWidth >= 300 ? 'flexible' : 'compact',
+      size: 'flexible',
       theme: 'light',
       callback: settle,
       'expired-callback': () => settle(''),

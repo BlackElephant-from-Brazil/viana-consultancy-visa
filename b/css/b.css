@@ -160,7 +160,7 @@ h3{ font-family:var(--serif); font-weight:400; font-size:clamp(1.3rem,1.75vw,1.6
 @keyframes glide1{ 0%{ transform:translate3d(-26px,14px,0) rotate(-9deg); } 50%{ transform:translate3d(8px,-10px,0) rotate(-15deg); } 100%{ transform:translate3d(34px,6px,0) rotate(-6deg); } }
 @keyframes glide2{ 0%{ transform:translate3d(-18px,-8px,0) rotate(-16deg); } 100%{ transform:translate3d(26px,12px,0) rotate(-7deg); } }
 
-.calcada{ height:48px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='48' viewBox='0 0 96 48'%3E%3Crect width='96' height='48' fill='%23F4F6F4'/%3E%3Cpath fill='%2310204A' d='M0 12c12 0 12-12 24-12s12 12 24 12 12-12 24-12 12 12 24 12v12c-12 0-12-12-24-12S60 24 48 24 36 12 24 12 12 24 0 24z'/%3E%3Cpath fill='%2310204A' d='M0 36c12 0 12-12 24-12s12 12 24 12 12-12 24-12 12 12 24 12v12c-12 0-12-12-24-12S60 48 48 48 36 36 24 36 12 48 0 48z'/%3E%3C/svg%3E") 0 0/96px 48px repeat-x; animation:tide 28s linear infinite; }
+.calcada{ height:56px; background-color:var(--glaze); background:var(--glaze) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='56' viewBox='0 0 96 56'%3E%3Cg fill='none' stroke='%2310204A' stroke-width='8' stroke-linecap='butt'%3E%3Cpath d='M-24 18c12 0 12-10 24-10s12 10 24 10 12-10 24-10 12 10 24 10 12-10 24-10 12 10 24 10'/%3E%3Cpath d='M-24 40c12 0 12-10 24-10s12 10 24 10 12-10 24-10 12 10 24 10 12-10 24-10 12 10 24 10'/%3E%3C/g%3E%3C/svg%3E") 0 0/96px 56px repeat-x; animation:tide 28s linear infinite; }
 @keyframes tide{ to{ background-position-x:-96px; } }
 
 /* ---------- situations: four hand-painted tiles, one per circumstance ---------- */
@@ -392,8 +392,63 @@ h3{ font-family:var(--serif); font-weight:400; font-size:clamp(1.3rem,1.75vw,1.6
 .card{ position:relative; }
 .card::before{ content:""; position:absolute; left:0; right:0; top:-34px; height:34px; background:var(--tile) 0 0/34px 34px; }
 .foot{ position:relative; }
-.foot::before{ content:""; position:absolute; left:0; right:0; top:0; height:48px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='48' viewBox='0 0 96 48'%3E%3Crect width='96' height='48' fill='%230D1422'/%3E%3Cpath fill='%23F4F6F4' d='M0 12c12 0 12-12 24-12s12 12 24 12 12-12 24-12 12 12 24 12v12c-12 0-12-12-24-12S60 24 48 24 36 12 24 12 12 24 0 24z'/%3E%3Cpath fill='%23F4F6F4' d='M0 36c12 0 12-12 24-12s12 12 24 12 12-12 24-12 12 12 24 12v12c-12 0-12-12-24-12S60 48 48 48 36 36 24 36 12 48 0 48z'/%3E%3C/svg%3E") 0 0/96px 48px repeat-x; animation:tide 28s linear infinite reverse; opacity:.9; }
-.foot{ padding-top:calc(clamp(48px,6vw,84px) + 48px); }
+.foot::before{ content:""; position:absolute; left:0; right:0; top:22px; height:56px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='56' viewBox='0 0 96 56'%3E%3Cg fill='none' stroke='%23F4F6F4' stroke-width='8' stroke-linecap='butt'%3E%3Cpath d='M-24 18c12 0 12-10 24-10s12 10 24 10 12-10 24-10 12 10 24 10 12-10 24-10 12 10 24 10'/%3E%3Cpath d='M-24 40c12 0 12-10 24-10s12 10 24 10 12-10 24-10 12 10 24 10 12-10 24-10 12 10 24 10'/%3E%3C/g%3E%3C/svg%3E") 0 0/96px 56px repeat-x; animation:tide 28s linear infinite reverse; opacity:.9; }
+.foot{ padding-top:calc(clamp(48px,6vw,84px) + 78px); }
 @media (max-width:1080px){ .steps__swallow{ display:none; } }
 @media (max-width:900px){ .planning::after{ width:70vw; opacity:.05; } .team__figure::before{ left:-12px; } }
 @media (prefers-reduced-motion:reduce){ .steps__swallow,.foot::before{ animation:none !important; } }
+
+/* ---------- mobile round, 2026-11-14 ---------- */
+.brand__name > span{ white-space:nowrap; }
+.foot__name{ display:flex; align-items:center; gap:12px; }
+.foot__mark{ width:28px; height:28px; flex:none; }
+.form__check{ width:100%; }
+.form__check iframe{ width:100% !important; }
+.form__check > div{ width:100%; }
+
+@media (max-width:900px){
+  /* hero: the arch fills the tile wall from the foot, the title starts right after */
+  .hero__wall{ height:clamp(320px, 50vh, 440px); }
+  .hero__arch{ height:calc(100% - 26px); width:auto; max-height:none; }
+  .swallow--1{ top:calc(clamp(320px, 50vh, 440px) + var(--head-h) + 14px); }
+  .hero__text{ padding-top:28px; }
+
+  /* text: no balanced short lines, no indents on narrow screens */
+  h1,h2,h3,.situations__close{ text-wrap:pretty; }
+  .situations__close{ max-width:none; margin-left:0; }
+  .sec-head__lede{ max-width:none; }
+
+  /* team: the portrait sits on a tile panel offset down and right, inside the column */
+  .team__figure{ max-width:30rem; padding:0 26px 0 0; }
+  .team__figure::before{ left:auto; right:0; top:44px; bottom:auto; width:78%; height:auto; aspect-ratio:4 / 4.4; background-size:72px 72px; }
+  .team__caption{ margin-right:-26px; }
+}
+
+@media (max-width:700px){
+  /* process: a plain vertical timeline instead of the staircase */
+  .steps{ grid-template-columns:1fr; row-gap:0; padding-left:26px; position:relative; }
+  .steps::before{ content:""; position:absolute; left:6px; top:10px; bottom:10px; width:1px; background:var(--line); }
+  .step:nth-child(n){ margin:0; padding:0 0 34px 0; border-top:0; }
+  .step:last-child{ padding-bottom:0; }
+  .step + .step::before{ display:none; }
+  .step::after{ content:""; position:absolute; left:-25px; top:8px; width:11px; height:11px; background:var(--cobalt); transform:rotate(45deg); box-shadow:0 0 0 4px var(--paper); }
+  .step__n{ margin-bottom:6px; font-size:1.35rem; }
+
+  /* form: Turnstile spans the card */
+  .card{ padding:22px 18px; }
+
+  /* footer */
+  .foot{ text-align:left; }
+  .foot__grid{ gap:26px; padding-bottom:30px; }
+  .foot__name{ font-size:1.55rem; }
+  .foot__desc{ color:#D5D9E2; }
+  .foot__notice{ font-size:.88rem; color:#8E95A6; padding-top:22px; border-top:1px solid rgba(240,232,218,.14); }
+  .foot__links{ grid-auto-flow:column; justify-content:start; gap:22px; font-size:.9rem; }
+  .foot__base{ flex-direction:column; align-items:flex-start; gap:6px; }
+}
+
+@media (max-width:480px){
+  .brand__mark{ display:block; width:30px; height:30px; }
+  .brand__name{ display:flex; flex-direction:column; font-size:1.02rem; line-height:1.02; }
+  .head__cta{ padding:.78em .9em; font-size:.78rem; }
+}
