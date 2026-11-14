@@ -31,6 +31,7 @@
   // Google Analytics 4
   load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
   window.gtag('js', new Date());
+  window.gtag('set', { ab_variant: VARIANT });
   window.gtag('set', 'user_properties', { ab_variant: VARIANT });
   window.gtag('config', 'G-5PR16BJBR1', { ab_variant: VARIANT });
 

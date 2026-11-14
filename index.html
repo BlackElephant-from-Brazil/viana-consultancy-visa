@@ -91,6 +91,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    // A/B test: the Edge Function on / stores the variant in the cookie va_ab; every GA4 event carries it.
+    var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
+    if (abVariant) gtag('set', { ab_variant: abVariant });
     gtag('config', 'G-5PR16BJBR1');
   </script>
   <!-- Microsoft Clarity (session recordings and heatmaps), project yuf8wg05wt. -->
@@ -100,6 +103,7 @@
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "yuf8wg05wt");
+    if (abVariant) clarity('set', 'ab_variant', abVariant);
   </script>
 
   <!-- Favicon -->
