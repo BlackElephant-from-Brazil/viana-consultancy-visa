@@ -3,7 +3,7 @@
    ============================================================ */
 
 // ---- NAVBAR ----
-// The Liquid Glass nav runs on its own, in liquid-glass-nav.js.
+// A plain sticky bar in HTML and CSS; it needs no script.
 
 // ---- SMOOTH SCROLL ----
 document.querySelectorAll('a[href^="#"]').forEach(a => {

@@ -37,7 +37,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="liquid-glass-nav.css">
   <link rel="stylesheet" href="style.css">
   <style>
     .legal-hero {
@@ -99,59 +98,19 @@
   <!-- GTM noscript -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DHSWHDP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- ===== NAVBAR (Liquid Glass) =====
-    At the top of the page a full-width bar; once the page scrolls, a
-    floating glass island that reads what is under it. liquid-glass-nav.js
-    drives the data-* attributes on .lgn-shell; liquid-glass-nav.css holds the
-    material. The header must stay a direct child of body (it is sticky), and
-    neither it nor any ancestor may get opacity, filter, transform or mask:
-    each one cuts the glass off from the page. -->
-  <header id="navbar" class="lgn" style="--lgn-blur: 2px; --lgn-tint: 14%">
-    <div class="lgn-shell" data-detached="false" data-open="false" data-tone="light">
-      <div class="lgn-glass" aria-hidden="true"></div>
-      <div class="lgn-sheen" aria-hidden="true"></div>
-      <!-- The refracting rim, used by desktop Chromium only. The script sets
-           its values; these are the attached bar's look (blur 12px). -->
-      <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="lgn-lens" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-            <feImage id="lgn-lens-map" preserveAspectRatio="none" result="map"/>
-            <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="soft0"/>
-            <feComponentTransfer in="soft0" result="soft"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
-            <feDisplacementMap in="soft" in2="map" scale="0" xChannelSelector="R" yChannelSelector="G" result="lensed"/>
-            <feGaussianBlur in="lensed" stdDeviation="11.906" result="frost"/>
-            <feComponentTransfer in="frost"><feFuncA type="table" tableValues="1 1"/></feComponentTransfer>
-          </filter>
-        </defs>
-      </svg>
-
-      <div class="lgn-row">
-        <div class="lgn-left">
-          <a href="index.html" class="lgn-home" aria-label="Viana Consultancy, home page">
-            <span class="lgn-mark" data-invert><img src="assets/images/Logo-8.webp" alt="" width="291" height="160"></span>
-          </a>
-          <nav class="lgn-links" aria-label="Main navigation">
-            <a href="index.html#reviews" class="lgn-link"><span>Reviews</span></a>
-            <a href="index.html#why-us" class="lgn-link"><span>Why us</span></a>
-            <a href="index.html#team" class="lgn-link"><span>Team</span></a>
-            <a href="index.html#process" class="lgn-link"><span>Process</span></a>
-            <a href="index.html#services" class="lgn-link"><span>Services</span></a>
-          </nav>
-        </div>
-        <a href="index.html#book-now" class="lgn-cta">Book a session</a>
-        <button type="button" class="lgn-toggle" aria-expanded="false" aria-controls="lgn-mobile" data-menu="Menu" data-close="Close">Menu</button>
-      </div>
-
-      <nav id="lgn-mobile" class="lgn-mobile" aria-label="Main navigation" hidden>
-        <a href="index.html" class="lgn-big">Home</a>
-        <a href="index.html#reviews" class="lgn-big">Reviews</a>
-        <a href="index.html#why-us" class="lgn-big">Why us</a>
-        <a href="index.html#team" class="lgn-big">Team</a>
-        <a href="index.html#process" class="lgn-big">Process</a>
-        <a href="index.html#services" class="lgn-big">Services</a>
-        <a href="index.html#book-now" class="lgn-cta-block">Book a session</a>
-      </nav>
-    </div>
+  <!-- ===== HEADER =====
+    A plain sticky bar like page B's: the mark, the firm's name and one call to
+    action. No script and no blur, so it costs nothing to draw (PageSpeed,
+    2026-11-16; it replaced the liquid-glass navbar). -->
+  <header id="navbar" class="site-head">
+    <a class="site-brand" href="index.html" aria-label="Viana Consultancy, home page">
+      <img class="site-brand__mark" src="assets/images/mark-64.webp" width="32" height="32" alt="">
+      <span class="site-brand__text">
+        <span class="site-brand__name"><span>Viana</span> <span>Consultancy</span></span>
+        <span class="site-brand__desc">Immigration legal support in Portugal</span>
+      </span>
+    </a>
+    <a class="site-head__cta" href="index.html#book-now">Book a session</a>
   </header>
 
   <!-- ===== HERO ===== -->
@@ -391,7 +350,6 @@
     </div>
   </footer>
 
-  <script src="liquid-glass-nav.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

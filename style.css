@@ -120,45 +120,50 @@ ul { list-style: none; }
 .form-input::placeholder { color: #aaa; }
 
 /* ============================================================
-   LIQUID GLASS NAV
-   The component's own CSS is liquid-glass-nav.css, loaded before this
-   file. Here only this site's settings: its palette, a gold call to
-   action like the rest of the page, and the logo, which is a wide
-   wordmark rather than the square mark the component expects.
-   Never put opacity, filter, transform or mask on .lgn or on anything
-   around it (see the comment on the header in index.html).
+   HEADER
+   A plain sticky white bar, like page B's: mark, name, one gold call
+   to action. 72px tall everywhere, which the hero's height subtracts
+   (calc(100dvh - 4.5rem)). Above the WhatsApp button (700).
    ============================================================ */
-.lgn {
-  --lgn-ink: #1B2A4A;
-  --lgn-steel: #3D4A63;
-  --lgn-line: rgba(27, 42, 74, .12);
-  --lgn-mist: #F5F5F5;
-  /* Above the WhatsApp button (700), so the open phone menu covers it. */
+.site-head {
+  position: sticky;
+  top: 0;
   z-index: 800;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: clamp(16px, 4vw, 48px);
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(27, 42, 74, .1);
 }
-/* The wordmark keeps its proportions: only the height is set, and only the
-   height moves between the bar and the island. */
-.lgn .lgn-mark,
-.lgn .lgn-shell[data-detached="true"] .lgn-mark {
-  width: auto;
-  height: 2.75rem;
-}
-.lgn .lgn-shell[data-detached="true"] .lgn-mark { height: 2.375rem; }
-.lgn .lgn-mark > img { width: auto; height: 100%; }
-/* Room above the first phone-menu link, so its focus ring is not cut off
-   by the menu's scroll box. */
-.lgn .lgn-mobile { padding-top: .375rem; }
-
-.lgn .lgn-cta,
-.lgn .lgn-shell[data-tone="dark"] .lgn-cta,
-.lgn .lgn-cta-block {
-  background-color: var(--gold);
+.site-brand { display: flex; align-items: center; gap: 12px; min-width: 0; color: var(--navy); text-decoration: none; }
+.site-brand__mark { width: 32px; height: 32px; flex: none; }
+.site-brand__text { display: flex; flex-direction: column; min-width: 0; }
+.site-brand__name { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 1.45rem; line-height: 1.05; letter-spacing: -.01em; white-space: nowrap; }
+.site-brand__name > span { white-space: nowrap; }
+.site-brand__desc { margin-top: 3px; font: 600 .64rem/1.3 'Figtree', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #5F6676; white-space: nowrap; }
+.site-head__cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  padding: .85em 1.35em;
+  border-radius: 999px;
+  background: var(--gold);
   color: var(--navy);
-  font-weight: 700;
+  font: 700 .9rem/1 'Figtree', sans-serif;
+  text-decoration: none;
+  transition: background-color .2s;
 }
-@media (hover: hover) {
-  .lgn .lgn-cta:hover,
-  .lgn .lgn-shell[data-tone="dark"] .lgn-cta:hover { background-color: var(--gold-dark); }
+@media (hover: hover) { .site-head__cta:hover { background: var(--gold-dark); } }
+@media (max-width: 700px) {
+  .site-brand__desc { display: none; }
+  .site-brand__name { font-size: 1.25rem; }
+  .site-head__cta { padding: .75em 1em; font-size: .82rem; }
+}
+@media (max-width: 480px) {
+  .site-brand__name { display: flex; flex-direction: column; font-size: 1.08rem; line-height: 1.02; }
 }
 
 /* ============================================================
