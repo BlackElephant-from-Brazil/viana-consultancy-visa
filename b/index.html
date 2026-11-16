@@ -20,6 +20,8 @@
   <link rel="icon" href="/b/img/mark-64.png" sizes="64x64" type="image/png">
   <link rel="apple-touch-icon" href="/b/img/mark-180.png">
 
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://www.clarity.ms">
   <link rel="preload" href="/b/fonts/Baskervville-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/b/fonts/InstrumentSans-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/b/css/b.css">
@@ -59,15 +61,10 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <!-- The wall: one fixed canvas behind the page. Sunlight through a Gothic window in the
-       morning (hero), the same wall at dusk behind the contact form. Decorative only. -->
-  <div class="wall" aria-hidden="true">
-    <canvas id="wall"></canvas>
-  </div>
 
   <header class="head" id="top">
     <a class="brand" href="#top" aria-label="Viana Consultancy, back to the top">
-      <img class="brand__mark" src="/b/img/mark-64.png" width="30" height="30" alt="">
+      <img class="brand__mark" src="/b/img/mark-64.webp" width="30" height="30" alt="">
       <span class="brand__text">
         <span class="brand__name"><span>Viana</span> <span>Consultancy</span></span>
         <span class="brand__desc">Immigration legal support in Portugal</span>
@@ -107,8 +104,8 @@
         <div class="tiles__sheen" aria-hidden="true"></div>
         <figure class="hero__arch">
           <picture>
-            <source type="image/avif" srcset="/b/img/patricia-door-640.avif 640w, /b/img/patricia-door-1066.avif 1066w" sizes="(max-width: 900px) 62vw, 26vw">
-            <img src="/b/img/patricia-door-1066.webp" srcset="/b/img/patricia-door-640.webp 640w, /b/img/patricia-door-1066.webp 1066w" sizes="(max-width: 900px) 62vw, 26vw" width="1066" height="1500" fetchpriority="high" decoding="async" alt="Patrícia Viana in her lawyer's robe at a carved stone doorway in Lisbon">
+            <source type="image/avif" srcset="/b/img/patricia-door-420.avif 420w, /b/img/patricia-door-640.avif 640w, /b/img/patricia-door-1066.avif 1066w" sizes="(max-width: 900px) 52vw, 26vw">
+            <img src="/b/img/patricia-door-1066.webp" srcset="/b/img/patricia-door-420.webp 420w, /b/img/patricia-door-640.webp 640w, /b/img/patricia-door-1066.webp 1066w" sizes="(max-width: 900px) 52vw, 26vw" width="1066" height="1500" fetchpriority="high" decoding="async" alt="Patrícia Viana in her lawyer's robe at a carved stone doorway in Lisbon">
           </picture>
         </figure>
       </div>
@@ -372,6 +369,8 @@
 
     <!-- ================= CONTACT ================= -->
     <section class="contact" id="contact" aria-labelledby="contact-title">
+      <!-- The wall at dusk: sunlight through a Gothic window, one WebGL shader. Decorative only. -->
+      <div class="wall" aria-hidden="true"><canvas id="wall"></canvas></div>
       <div class="wrap contact__grid">
         <header class="contact__head">
           <p class="eyebrow">Your next step</p>
@@ -425,7 +424,7 @@
   <footer class="foot">
     <div class="wrap foot__grid">
       <div class="foot__brand">
-        <p class="foot__name"><img class="foot__mark" src="/b/img/mark-64.png" width="28" height="28" alt="">Viana Consultancy</p>
+        <p class="foot__name"><img class="foot__mark" src="/b/img/mark-64.webp" width="28" height="28" alt="">Viana Consultancy</p>
         <p class="foot__desc">Legal guidance for your plans in Portugal.</p>
       </div>
       <p class="foot__notice">The information on this page is general. Advice on your circumstances requires an individual legal assessment.</p>

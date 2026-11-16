@@ -26,10 +26,8 @@
 
   // Google Tag Manager
   window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js', ab_variant: VARIANT });
-  load('https://www.googletagmanager.com/gtm.js?id=GTM-5DHSWHDP');
 
   // Google Analytics 4
-  load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
   window.gtag('js', new Date());
   window.gtag('set', { ab_variant: VARIANT });
   window.gtag('set', 'user_properties', { ab_variant: VARIANT });
@@ -37,6 +35,15 @@
 
   // Microsoft Clarity
   window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
-  load('https://www.clarity.ms/tag/yuf8wg05wt');
   window.clarity('set', 'ab_variant', VARIANT);
+
+  // The queues above take events at once; the libraries (about 500 KB) are fetched after the
+  // page load event so they never compete with the page itself on a slow connection.
+  function start() {
+    load('https://www.googletagmanager.com/gtm.js?id=GTM-5DHSWHDP');
+    load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
+    load('https://www.clarity.ms/tag/yuf8wg05wt');
+  }
+  if (document.readyState === 'complete') start();
+  else window.addEventListener('load', start, { once: true });
 })();

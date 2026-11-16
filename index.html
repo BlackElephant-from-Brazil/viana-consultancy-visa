@@ -80,30 +80,34 @@
   }
   </script>
 
-  <!-- GTM -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5DHSWHDP');</script>
-  <!-- Google Analytics 4, property "Alttavia Relocation". Loaded here and not
-       through GTM, because GTM-5DHSWHDP sits in a Google account we cannot
-       reach. script.js sends the conversion events with gtag(); Google Ads
-       imports them from GA4. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1"></script>
+  <!-- Tracking: GTM (GTM-5DHSWHDP, owns the Calendly booking conversion), GA4 (G-5PR16BJBR1,
+       property "Alttavia Relocation", loaded directly because GTM-5DHSWHDP sits in a Google
+       account we cannot reach; script.js sends the conversion events with gtag() and Google Ads
+       imports them from GA4) and Microsoft Clarity (yuf8wg05wt).
+       The queues (dataLayer, gtag, clarity) exist at once, so nothing sent early is lost, but the
+       three libraries (about 500 KB) are fetched only after the page "load" event, so they do not
+       compete with the CSS and the hero photo on a slow phone connection (PageSpeed, 2026-11-16). -->
   <script>
     window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     // A/B test: the Edge Function on / stores the variant in the cookie va_ab; every GA4 event carries it.
     var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
     if (abVariant) gtag('set', { ab_variant: abVariant });
     gtag('config', 'G-5PR16BJBR1');
-  </script>
-  <!-- Microsoft Clarity (session recordings and heatmaps), project yuf8wg05wt. -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yuf8wg05wt");
+    window.clarity = window.clarity || function(){ (window.clarity.q = window.clarity.q || []).push(arguments); };
     if (abVariant) clarity('set', 'ab_variant', abVariant);
+    (function () {
+      function load(src) { var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
+      function start() {
+        load('https://www.googletagmanager.com/gtm.js?id=GTM-5DHSWHDP');
+        load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
+        load('https://www.clarity.ms/tag/yuf8wg05wt');
+      }
+      if (document.readyState === 'complete') start();
+      else window.addEventListener('load', start, { once: true });
+    })();
   </script>
 
   <!-- Favicon -->
@@ -112,9 +116,13 @@
   <link rel="apple-touch-icon" href="https://visas.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8-1.png">
 
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Figtree:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Fonts are self-hosted (assets/fonts, latin subset, variable weights): no request to
+       Google Fonts blocks the first paint. -->
+  <style>
+    @font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/CormorantGaramond-normal.woff2") format("woff2")}
+    @font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:400 700;font-display:swap;src:url("assets/fonts/CormorantGaramond-italic.woff2") format("woff2")}
+    @font-face{font-family:"Figtree";font-style:normal;font-weight:300 800;font-display:swap;src:url("assets/fonts/Figtree-normal.woff2") format("woff2")}
+  </style>
 
   <link rel="stylesheet" href="liquid-glass-nav.css">
   <link rel="stylesheet" href="style.css">
@@ -152,7 +160,7 @@
       <div class="lgn-row">
         <div class="lgn-left">
           <a href="#home" class="lgn-home" aria-label="Viana Consultancy, back to the top">
-            <span class="lgn-mark" data-invert><img src="assets/images/Logo-8.png" alt="" width="251" height="138"></span>
+            <span class="lgn-mark" data-invert><img src="assets/images/Logo-8.webp" alt="" width="291" height="160"></span>
           </a>
           <nav class="lgn-links" aria-label="Main navigation">
             <a href="#reviews" class="lgn-link"><span>Reviews</span></a>
@@ -177,6 +185,8 @@
       </nav>
     </div>
   </header>
+
+  <main id="main">
 
   <!-- ===== HERO ===== -->
   <!--
@@ -301,7 +311,7 @@
     <div class="container about-grid">
       <div class="about-img-wrap fade-in">
         <div class="photo-frame">
-          <img src="assets/images/Group-6.webp" alt="Happy clients who relocated to Portugal" class="about-img" loading="lazy" width="854" height="965">
+          <img src="assets/images/Group-6.webp" srcset="assets/images/Group-6-640.webp 640w, assets/images/Group-6.webp 854w" sizes="(max-width: 768px) 92vw, 460px" alt="Happy clients who relocated to Portugal" class="about-img" loading="lazy" decoding="async" width="854" height="965">
         </div>
       </div>
       <div class="about-text fade-in" style="--d:.15s">
@@ -393,7 +403,7 @@
         </div>
         <div class="team-photo-wrap fade-in" style="--d:.15s">
           <div class="photo-frame frame-right">
-            <img src="assets/images/patricia-team.webp" alt="Patrícia Viana, Founder &amp; Lead Attorney" class="team-photo team-photo-patricia" loading="lazy" width="920" height="1035">
+            <img src="assets/images/patricia-team.webp" srcset="assets/images/patricia-team-480.webp 480w, assets/images/patricia-team.webp 920w" sizes="(max-width: 768px) 92vw, 460px" alt="Patrícia Viana, Founder &amp; Lead Attorney" class="team-photo team-photo-patricia" loading="lazy" decoding="async" width="920" height="1035">
           </div>
         </div>
       </div>
@@ -402,7 +412,7 @@
       <div class="team-row team-row-reverse">
         <div class="team-photo-wrap fade-in">
           <div class="photo-frame frame-left">
-            <img src="assets/images/Group-8.webp" alt="Bruna Xavier, Assistant Attorney" class="team-photo" loading="lazy" width="850" height="957">
+            <img src="assets/images/Group-8.webp" srcset="assets/images/Group-8-480.webp 480w, assets/images/Group-8.webp 850w" sizes="(max-width: 768px) 92vw, 460px" alt="Bruna Xavier, Assistant Attorney" class="team-photo" loading="lazy" decoding="async" width="850" height="957">
           </div>
         </div>
         <div class="team-text fade-in" style="--d:.15s">
@@ -589,17 +599,19 @@
       </div>
       <div class="final-cta-photo-wrap fade-in" style="--d:.15s">
         <div class="photo-frame frame-right">
-          <img src="assets/images/patricia-cta.webp" alt="Patrícia Viana, immigration lawyer, in her lawyer's robe at a Lisbon doorway" class="final-cta-photo" loading="lazy" width="880" height="1100">
+          <img src="assets/images/patricia-cta.webp" srcset="assets/images/patricia-cta-480.webp 480w, assets/images/patricia-cta.webp 880w" sizes="(max-width: 768px) 92vw, 440px" alt="Patrícia Viana, immigration lawyer, in her lawyer's robe at a Lisbon doorway" class="final-cta-photo" loading="lazy" decoding="async" width="880" height="1100">
         </div>
       </div>
     </div>
   </section>
 
+  </main>
+
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <img src="assets/images/Logo-8.png" alt="Viana Consultancy" class="footer-logo">
+        <img src="assets/images/Logo-8.webp" alt="Viana Consultancy" class="footer-logo" width="291" height="160" loading="lazy">
         <a href="mailto:enquiries@vianaconsultancy.com" class="footer-contact-link">enquiries@vianaconsultancy.com</a>
         <a href="tel:+351960174940" class="footer-contact-link">+351 960 174 940 <small>(Call to national mobile network)</small></a>
         <div class="footer-socials">
@@ -707,11 +719,57 @@
     })();
   </script>
 
-  <script async src="https://assets.calendly.com/assets/external/widget.js"></script>
   <script src="liquid-glass-nav.js"></script>
   <script src="script.js"></script>
-  <!-- Cloudflare Turnstile, after script.js, which defines onTurnstileLoad. Load it from
-       Cloudflare only: a copied or cached api.js breaks when Cloudflare updates it. -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&amp;onload=onTurnstileLoad" async defer></script>
+  <!--
+    Third parties that cost the most load only when they are needed (PageSpeed, 2026-11-16:
+    Calendly alone brought 3.3 MB and 2 s of main-thread work, Turnstile another 3.5 MB):
+    - Calendly's widget.js when the booking section comes within 1000px of the screen. The
+      click-id script above has already written data-url by then.
+    - Cloudflare Turnstile when a lead form is touched or the final form comes near. Load it
+      from Cloudflare only: a copied or cached api.js breaks when Cloudflare updates it.
+      script.js defines onTurnstileLoad and waits up to 8 s for a token after a submit.
+  -->
+  <script>
+    (function () {
+      function load(src) {
+        var s = document.createElement('script');
+        s.src = src; s.async = true;
+        document.body.appendChild(s);
+      }
+      function whenNear(el, margin, fn) {
+        if (!el) return;
+        if (!('IntersectionObserver' in window)) { fn(); return; }
+        var io = new IntersectionObserver(function (entries) {
+          if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); fn(); }
+        }, { rootMargin: margin });
+        io.observe(el);
+      }
+
+      var calendlyLoaded = false;
+      function loadCalendly() {
+        if (calendlyLoaded) return;
+        calendlyLoaded = true;
+        load('https://assets.calendly.com/assets/external/widget.js');
+      }
+      whenNear(document.getElementById('book-now'), '1000px 0px', loadCalendly);
+      document.querySelectorAll('a[href="#book-now"]').forEach(function (a) {
+        a.addEventListener('click', loadCalendly);
+      });
+
+      var turnstileLoaded = false;
+      function loadTurnstile() {
+        if (turnstileLoaded) return;
+        turnstileLoaded = true;
+        load('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad');
+      }
+      document.querySelectorAll('.lead-form').forEach(function (form) {
+        form.addEventListener('focusin', loadTurnstile);
+        form.addEventListener('pointerdown', loadTurnstile);
+      });
+      var forms = document.querySelectorAll('.lead-form');
+      whenNear(forms[forms.length - 1], '400px 0px', loadTurnstile);
+    })();
+  </script>
 </body>
 </html>

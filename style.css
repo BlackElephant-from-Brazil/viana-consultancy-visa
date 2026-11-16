@@ -306,7 +306,7 @@ ul { list-style: none; }
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: #999;
+  color: #6B6B6B;
 }
 .lead-or::before,
 .lead-or::after { content: ''; flex: 1; height: 1px; background: #e4e4e4; }
@@ -466,7 +466,7 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 .rc-name { font-weight: 700; font-size: .88rem; }
-.rc-date { font-size: .75rem; color: #999; }
+.rc-date { font-size: .75rem; color: #6B6B6B; }
 .google-icon { width: 20px; height: 20px; flex-shrink: 0; }
 .rc-stars { display: flex; gap: 1px; align-items: center; }
 .rc-stars svg { width: 15px; height: 15px; color: #FBBC04; }
@@ -751,7 +751,7 @@ ul { list-style: none; }
   transition: color .2s;
 }
 .footer-contact-link:hover { color: var(--gold); }
-.footer-contact-link small { color: #999; font-size: .8rem; }
+.footer-contact-link small { color: #666; font-size: .8rem; }
 .footer-socials { display: flex; gap: .65rem; margin-top: 1.25rem; }
 .social-btn {
   width: 36px; height: 36px;
@@ -774,7 +774,7 @@ ul { list-style: none; }
 
 .footer-credit { padding: 0 1.5rem 1.75rem; text-align: left; }
 .footer-credit-text { font-size: .82rem; color: var(--muted); }
-.footer-credit-link { color: var(--gold); font-weight: 600; transition: opacity .2s; }
+.footer-credit-link { color: var(--gold-dark); font-weight: 600; transition: opacity .2s; }
 .footer-credit-link:hover { opacity: .7; }
 
 .footer-bottom { background: var(--gold); padding: 1rem 0; }
