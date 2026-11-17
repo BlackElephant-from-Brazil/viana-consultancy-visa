@@ -80,9 +80,9 @@
   }
   </script>
 
-  <!-- Tracking: GTM (GTM-5DHSWHDP, owns the Calendly booking conversion), GA4 (G-5PR16BJBR1,
-       property "Alttavia Relocation", loaded directly because GTM-5DHSWHDP sits in a Google
-       account we cannot reach; script.js sends the conversion events with gtag() and Google Ads
+  <!-- Tracking: GTM (GTM-NSBRS9XN since 2026-11-17, replacing GTM-5DHSWHDP), GA4 (G-5PR16BJBR1,
+       property "Alttavia Relocation", loaded directly, not through GTM;
+        script.js sends the conversion events with gtag() and Google Ads
        imports them from GA4) and Microsoft Clarity (yuf8wg05wt).
        The queues (dataLayer, gtag, clarity) exist at once, so nothing sent early is lost, but the
        three libraries (about 500 KB) are fetched only after the page "load" event, so they do not
@@ -101,7 +101,7 @@
     (function () {
       function load(src) { var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
       function start() {
-        load('https://www.googletagmanager.com/gtm.js?id=GTM-5DHSWHDP');
+        load('https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN');
         load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
         load('https://www.clarity.ms/tag/yuf8wg05wt');
       }
@@ -128,7 +128,7 @@
 </head>
 <body>
   <!-- GTM noscript -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DHSWHDP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSBRS9XN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ===== HEADER =====
     A plain sticky bar like page B's: the mark, the firm's name and one call to

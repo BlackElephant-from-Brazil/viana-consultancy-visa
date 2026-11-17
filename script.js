@@ -159,8 +159,8 @@ if (track) {
 }
 
 // ---- CALENDLY BOOKING CONVERSION TRACKING ----
-// Nothing to do here. The booking conversion is owned by GTM container
-// GTM-5DHSWHDP, which registers its own listener for Calendly's postMessage
+// Nothing to do here. The booking conversion is meant for the GTM container
+// (GTM-NSBRS9XN since 2026-11-17; the old GTM-5DHSWHDP had it), which registers its own listener for Calendly's postMessage
 // and fires the Google Ads tag. This file used to push a second dataLayer
 // event that no GTM trigger listened for. Do not re-add it: two listeners
 // pushing the same booking would count the conversion twice.
@@ -170,8 +170,8 @@ if (track) {
 
 // ---- CONVERSION EVENTS ----
 // Sent straight to GA4 (property "Alttavia Relocation", G-5PR16BJBR1, whose
-// tag is in the page head), not through GTM: GTM-5DHSWHDP sits in a Google
-// account we cannot reach. Google Ads imports these GA4 events as
+// tag is in the page head), not through GTM (decided when the old container
+// GTM-5DHSWHDP was out of reach). Google Ads imports these GA4 events as
 // conversions, so the names must stay exactly as they are:
 //   whatsapp_click, email_click, phone_number_click  a click on those links
 //   contact_form_submission  a lead form n8n accepted (with form_source)

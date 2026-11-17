@@ -1,4 +1,4 @@
-// Page B tracking. Same tags as page A (GTM-5DHSWHDP, GA4 G-5PR16BJBR1, Clarity yuf8wg05wt),
+// Page B tracking. Same tags as page A (GTM-NSBRS9XN, GA4 G-5PR16BJBR1, Clarity yuf8wg05wt),
 // loaded only on the production host so local work and deploy previews never reach the reports.
 // Every GA4 event carries ab_variant "b" so the two pages can be told apart.
 (function () {
@@ -40,7 +40,7 @@
   // The queues above take events at once; the libraries (about 500 KB) are fetched after the
   // page load event so they never compete with the page itself on a slow connection.
   function start() {
-    load('https://www.googletagmanager.com/gtm.js?id=GTM-5DHSWHDP');
+    load('https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN');
     load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
     load('https://www.clarity.ms/tag/yuf8wg05wt');
   }
