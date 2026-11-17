@@ -9,11 +9,8 @@
 
   <!-- GTM -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NSBRS9XN');</script>
-  <!-- Google Analytics 4, property "Alttavia Relocation". Loaded here and not
-       through GTM (decided 2026-09-29, when the old container GTM-5DHSWHDP was out of reach;
-       GTM-NSBRS9XN replaced it on 2026-11-17). script.js sends the conversion events with gtag(); Google Ads
-       imports them from GA4. -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1"></script>
+  <!-- GA4 comes from the GTM container (Google tag G-G0SJ0GTZWV). The queue below only keeps
+       the A/B variant and the events script.js sends; no GA4 library is loaded here. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -21,7 +18,6 @@
     // A/B test: the Edge Function on / stores the variant in the cookie va_ab; every GA4 event carries it.
     var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
     if (abVariant) gtag('set', { ab_variant: abVariant });
-    gtag('config', 'G-5PR16BJBR1');
   </script>
   <!-- Microsoft Clarity (session recordings and heatmaps), project yuf8wg05wt. -->
   <script type="text/javascript">

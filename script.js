@@ -169,10 +169,10 @@ if (track) {
 // captured in index.html, before the Calendly widget starts.
 
 // ---- CONVERSION EVENTS ----
-// Sent straight to GA4 (property "Alttavia Relocation", G-5PR16BJBR1, whose
-// tag is in the page head), not through GTM (decided when the old container
-// GTM-5DHSWHDP was out of reach). Google Ads imports these GA4 events as
-// conversions, so the names must stay exactly as they are:
+// Pushed to the dataLayer with gtag(); the GA4 Google tag in GTM-NSBRS9XN
+// (G-G0SJ0GTZWV) picks them up. Until 2026-11-17 they went to a direct GA4
+// install (G-5PR16BJBR1), whose events Google Ads imported as conversions,
+// so the names must stay exactly as they are:
 //   whatsapp_click, email_click, phone_number_click  a click on those links
 //   contact_form_submission  a lead form n8n accepted (with form_source)
 //   ebook_download           the eBook form n8n accepted

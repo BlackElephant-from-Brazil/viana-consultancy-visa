@@ -80,12 +80,11 @@
   }
   </script>
 
-  <!-- Tracking: GTM (GTM-NSBRS9XN since 2026-11-17, replacing GTM-5DHSWHDP), GA4 (G-5PR16BJBR1,
-       property "Alttavia Relocation", loaded directly, not through GTM;
-        script.js sends the conversion events with gtag() and Google Ads
-       imports them from GA4) and Microsoft Clarity (yuf8wg05wt).
+  <!-- Tracking: GTM (GTM-NSBRS9XN since 2026-11-17, replacing GTM-5DHSWHDP), which carries GA4
+       (Google tag G-G0SJ0GTZWV; the direct G-5PR16BJBR1 install was removed on 2026-11-17), and
+       Microsoft Clarity (yuf8wg05wt). script.js still pushes its events to the dataLayer with gtag().
        The queues (dataLayer, gtag, clarity) exist at once, so nothing sent early is lost, but the
-       three libraries (about 500 KB) are fetched only after the page "load" event, so they do not
+       two libraries are fetched only after the page "load" event, so they do not
        compete with the CSS and the hero photo on a slow phone connection (PageSpeed, 2026-11-16). -->
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -95,14 +94,12 @@
     // A/B test: the Edge Function on / stores the variant in the cookie va_ab; every GA4 event carries it.
     var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
     if (abVariant) gtag('set', { ab_variant: abVariant });
-    gtag('config', 'G-5PR16BJBR1');
     window.clarity = window.clarity || function(){ (window.clarity.q = window.clarity.q || []).push(arguments); };
     if (abVariant) clarity('set', 'ab_variant', abVariant);
     (function () {
       function load(src) { var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
       function start() {
         load('https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN');
-        load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
         load('https://www.clarity.ms/tag/yuf8wg05wt');
       }
       if (document.readyState === 'complete') start();

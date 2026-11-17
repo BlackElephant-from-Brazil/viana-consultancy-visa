@@ -1,4 +1,4 @@
-// Page B tracking. Same tags as page A (GTM-NSBRS9XN, GA4 G-5PR16BJBR1, Clarity yuf8wg05wt),
+// Page B tracking. Same tags as page A (GTM-NSBRS9XN, which carries GA4 G-G0SJ0GTZWV; Clarity yuf8wg05wt),
 // loaded only on the production host so local work and deploy previews never reach the reports.
 // Every GA4 event carries ab_variant "b" so the two pages can be told apart.
 (function () {
@@ -27,11 +27,10 @@
   // Google Tag Manager
   window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js', ab_variant: VARIANT });
 
-  // Google Analytics 4
+  // GA4 comes from the GTM container; these commands only keep the variant on its events.
   window.gtag('js', new Date());
   window.gtag('set', { ab_variant: VARIANT });
   window.gtag('set', 'user_properties', { ab_variant: VARIANT });
-  window.gtag('config', 'G-5PR16BJBR1', { ab_variant: VARIANT });
 
   // Microsoft Clarity
   window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
@@ -41,7 +40,6 @@
   // page load event so they never compete with the page itself on a slow connection.
   function start() {
     load('https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN');
-    load('https://www.googletagmanager.com/gtag/js?id=G-5PR16BJBR1');
     load('https://www.clarity.ms/tag/yuf8wg05wt');
   }
   if (document.readyState === 'complete') start();
