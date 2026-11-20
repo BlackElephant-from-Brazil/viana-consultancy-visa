@@ -191,7 +191,14 @@ form.addEventListener('submit', async (e) => {
     });
     if (!res.ok) throw new Error(String(res.status));
     showSent();
-    if (window.vaTrack) window.vaTrack('contact_form_submission', { form_source: form.dataset.source || 'page-b' });
+    // A lead counts only here, after the webhook answered 2xx for a real send (not on the
+    // click, a validation error, a caught bot, a refused check or a failure). Only form_id
+    // goes with it, never what the visitor typed; the flag makes one send one event.
+    if (!form.dataset.leadSent) {
+      form.dataset.leadSent = '1';
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'generate_lead', form_id: form.dataset.formId || 'visa_b_enquiry' });
+    }
   } catch (err) {
     fail();
   }

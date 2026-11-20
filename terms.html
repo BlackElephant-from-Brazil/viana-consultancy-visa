@@ -3,6 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Consent Mode: everything denied until the visitor chooses in the banner (/consent.js).
+       A saved choice (localStorage "va_consent", 12 months) is restored here, before GTM loads,
+       so no tag ever runs ahead of it. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+      analytics_storage: 'denied', wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    (function () {
+      try {
+        var c = JSON.parse(localStorage.getItem('va_consent') || 'null');
+        if (!c || c.v !== 1 || Date.now() - c.t >= 31536000000) return;
+        var ad = c.marketing ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          analytics_storage: c.analytics ? 'granted' : 'denied',
+          ad_storage: ad, ad_user_data: ad, ad_personalization: ad
+        });
+      } catch (e) {}
+    })();
+  </script>
   <!-- Google Tag Manager GTM-NSBRS9XN: the only tag on the site. GA4, Clarity and any other
        tool are configured inside the container, never added to the code. -->
   <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN"></script>
@@ -323,11 +346,14 @@
         <div class="footer-legal-links">
           <a href="terms.html" class="footer-legal-link">Terms &amp; Conditions</a>
           <a href="privacy.html" class="footer-legal-link">Privacy Policy</a>
+          <a href="#" class="footer-legal-link" data-consent-open>Cookie settings</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
+  <!-- Cookie banner and consent updates; the defaults are set in <head>. -->
+  <script src="/consent.js" defer></script>
 </body>
 </html>

@@ -171,7 +171,9 @@ if (track) {
 // head, or below). No tag is in the code: what GTM-NSBRS9XN does with these
 // events is configured in the container. The names stay exactly as they are:
 //   whatsapp_click, email_click, phone_number_click  a click on those links
-//   contact_form_submission  a lead form n8n accepted (with form_source)
+//   generate_lead            a lead form n8n accepted, pushed as a plain dataLayer
+//                            event with the form's form_id only (see pushLead below);
+//                            it replaced contact_form_submission on 2026-11-20
 //   ebook_download           the eBook form n8n accepted
 // The Calendly booking stays with the GTM listener described above: never
 // send a booking event from this file.
@@ -180,6 +182,18 @@ window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
 
 function trackEvent(event, params) {
   window.gtag('event', event, params || {});
+}
+
+// A lead is counted only after the n8n webhook answered 2xx for a real send:
+// never on the click, a validation error, a bot caught by the honeypot or the
+// time trap, a refused security check, a 4xx/5xx or a network failure. The
+// event carries form_id and nothing the visitor typed. The flag on the form
+// makes one send one event, whatever happens to the button afterwards.
+function pushLead(form) {
+  if (form.dataset.leadSent) return;
+  form.dataset.leadSent = '1';
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'generate_lead', form_id: form.dataset.formId || 'visa_lead' });
 }
 
 // Capture phase, so a handler that stops the click cannot hide it. The
@@ -373,7 +387,7 @@ document.querySelectorAll('.lead-form').forEach(form => {
       });
       if (!res.ok) throw new Error();
       done();
-      trackEvent('contact_form_submission', { form_source: form.dataset.source || '' });
+      pushLead(form);
     } catch (err) {
       resetWidget();
       fail('Your details did not reach us. Try again, or email us below.');

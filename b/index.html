@@ -3,6 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Consent Mode: everything denied until the visitor chooses in the banner (/consent.js).
+       A saved choice (localStorage "va_consent", 12 months) is restored here, before GTM loads,
+       so no tag ever runs ahead of it. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+      analytics_storage: 'denied', wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    (function () {
+      try {
+        var c = JSON.parse(localStorage.getItem('va_consent') || 'null');
+        if (!c || c.v !== 1 || Date.now() - c.t >= 31536000000) return;
+        var ad = c.marketing ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          analytics_storage: c.analytics ? 'granted' : 'denied',
+          ad_storage: ad, ad_user_data: ad, ad_personalization: ad
+        });
+      } catch (e) {}
+    })();
+  </script>
   <!-- A/B test: the Edge Function on / rewrites to this file only for variant B, so
        this page is always "b". The key goes into the dataLayer before the GTM
        snippet, so GTM's first event already sees it; GTM reads it with a Data Layer Variable
@@ -393,7 +416,7 @@
         </header>
 
         <div class="card" id="enquiry">
-          <form class="form" id="enquiry-form" novalidate data-source="page-b">
+          <form class="form" id="enquiry-form" novalidate data-source="page-b" data-form-id="visa_b_enquiry">
             <div class="field">
               <label for="f-name">Name</label>
               <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" required aria-describedby="e-name">
@@ -445,6 +468,7 @@
       <nav class="foot__links" aria-label="Legal">
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms &amp; Conditions</a>
+        <a href="#" data-consent-open>Cookie settings</a>
       </nav>
     </div>
     <div class="wrap foot__base">
@@ -452,5 +476,7 @@
       <p>Made with ❤️ by <a href="https://guyshore.com" target="_blank" rel="noopener">guyshore.com</a></p>
     </div>
   </footer>
+  <!-- Cookie banner and consent updates; the defaults are set in <head>. -->
+  <script src="/consent.js" defer></script>
 </body>
 </html>

@@ -3,6 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Consent Mode: everything denied until the visitor chooses in the banner (/consent.js).
+       A saved choice (localStorage "va_consent", 12 months) is restored here, before GTM loads,
+       so no tag ever runs ahead of it. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+      analytics_storage: 'denied', wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    (function () {
+      try {
+        var c = JSON.parse(localStorage.getItem('va_consent') || 'null');
+        if (!c || c.v !== 1 || Date.now() - c.t >= 31536000000) return;
+        var ad = c.marketing ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          analytics_storage: c.analytics ? 'granted' : 'denied',
+          ad_storage: ad, ad_user_data: ad, ad_personalization: ad
+        });
+      } catch (e) {}
+    })();
+  </script>
   <!-- A/B test: the Edge Function on / (netlify/edge-functions/ab-test.js) serves this
        file only for variant A, so this page is always "a". The key goes into the dataLayer before the GTM
        snippet, so GTM's first event already sees it; GTM reads it with a Data Layer Variable
@@ -159,7 +182,7 @@
       <div class="lead-card hero-lead">
         <h2 class="lead-title">Speak with a lawyer</h2>
         <p class="lead-desc">Leave your details. We'll reply soon.</p>
-        <form class="lead-form" data-source="hero" novalidate>
+        <form class="lead-form" data-source="hero" data-form-id="visa_a_hero" novalidate>
           <label class="sr-only" for="hero-name">Your name</label>
           <input id="hero-name" class="form-input" type="text" name="name" placeholder="Your name" autocomplete="name" required>
           <label class="sr-only" for="hero-email">Your email</label>
@@ -517,7 +540,7 @@
         <div class="lead-card final-lead fade-in" style="--d:.2s">
           <h3 class="lead-title">Speak with a lawyer</h3>
           <p class="lead-desc">Leave your details. We'll reply soon.</p>
-          <form class="lead-form" data-source="final-cta" novalidate>
+          <form class="lead-form" data-source="final-cta" data-form-id="visa_a_final_cta" novalidate>
             <label class="sr-only" for="final-name">Your name</label>
             <input id="final-name" class="form-input" type="text" name="name" placeholder="Your name" autocomplete="name" required>
             <label class="sr-only" for="final-email">Your email</label>
@@ -602,6 +625,7 @@
         <div class="footer-legal-links">
           <a href="terms.html" class="footer-legal-link">Terms &amp; Conditions</a>
           <a href="privacy.html" class="footer-legal-link">Privacy Policy</a>
+          <a href="#" class="footer-legal-link" data-consent-open>Cookie settings</a>
         </div>
       </div>
     </div>
@@ -712,5 +736,7 @@
       whenNear(forms[forms.length - 1], '400px 0px', loadTurnstile);
     })();
   </script>
+  <!-- Cookie banner and consent updates; the defaults are set in <head>. -->
+  <script src="/consent.js" defer></script>
 </body>
 </html>

@@ -3,6 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Consent Mode: everything denied until the visitor chooses in the banner (/consent.js).
+       A saved choice (localStorage "va_consent", 12 months) is restored here, before GTM loads,
+       so no tag ever runs ahead of it. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+      analytics_storage: 'denied', wait_for_update: 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+    (function () {
+      try {
+        var c = JSON.parse(localStorage.getItem('va_consent') || 'null');
+        if (!c || c.v !== 1 || Date.now() - c.t >= 31536000000) return;
+        var ad = c.marketing ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          analytics_storage: c.analytics ? 'granted' : 'denied',
+          ad_storage: ad, ad_user_data: ad, ad_personalization: ad
+        });
+      } catch (e) {}
+    })();
+  </script>
   <!-- A/B test: the Edge Function on / keeps the variant in the cookie va_ab (readable from
        JavaScript). The key goes into the dataLayer before the GTM snippet, so GTM's first event
        already sees it; GTM reads it with a Data Layer Variable "ab_variant". -->
@@ -106,5 +129,7 @@
       </div>
     </div>
   </section>
+  <!-- Cookie banner and consent updates; the defaults are set in <head>. -->
+  <script src="/consent.js" defer></script>
 </body>
 </html>
