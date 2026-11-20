@@ -159,20 +159,17 @@ if (track) {
 }
 
 // ---- CALENDLY BOOKING CONVERSION TRACKING ----
-// Nothing to do here. The booking conversion is meant for the GTM container
-// (GTM-NSBRS9XN since 2026-11-17; the old GTM-5DHSWHDP had it), which registers its own listener for Calendly's postMessage
-// and fires the Google Ads tag. This file used to push a second dataLayer
-// event that no GTM trigger listened for. Do not re-add it: two listeners
-// pushing the same booking would count the conversion twice.
+// Nothing to do here. A booking conversion belongs in GTM-NSBRS9XN (a listener
+// for Calendly's postMessage). Do not push a booking event from this file as
+// well: two pushes would count the conversion twice.
 //
 // The click id that lets a booking be matched back to its ad click is
 // captured in index.html, before the Calendly widget starts.
 
 // ---- CONVERSION EVENTS ----
-// Pushed to the dataLayer with gtag(); the GA4 Google tag in GTM-NSBRS9XN
-// (G-G0SJ0GTZWV) picks them up. Until 2026-11-17 they went to a direct GA4
-// install (G-5PR16BJBR1), whose events Google Ads imported as conversions,
-// so the names must stay exactly as they are:
+// Pushed to the dataLayer with gtag() (defined by the GTM snippet in the page
+// head, or below). No tag is in the code: what GTM-NSBRS9XN does with these
+// events is configured in the container. The names stay exactly as they are:
 //   whatsapp_click, email_click, phone_number_click  a click on those links
 //   contact_form_submission  a lead form n8n accepted (with form_source)
 //   ebook_download           the eBook form n8n accepted

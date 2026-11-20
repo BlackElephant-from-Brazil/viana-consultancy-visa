@@ -3,6 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- A/B test: the Edge Function on / (netlify/edge-functions/ab-test.js) serves this
+       file only for variant A, so this page is always "a". The key goes into the dataLayer before the GTM
+       snippet, so GTM's first event already sees it; GTM reads it with a Data Layer Variable
+       "ab_variant". No tag is configured here. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ ab_variant: 'a' });
+  </script>
+  <!-- Google Tag Manager GTM-NSBRS9XN: the only tag on the site. GA4, Clarity and any other
+       tool are configured inside the container, never added to the code. -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
   <title>D7 &amp; D8 Visa Lawyer in Portugal | Patrícia Viana</title>
   <meta name="description" content="Licensed Portuguese immigration lawyers specializing in D7 and D8 visas. Trusted by 800+ clients. Book a relocation strategy session today.">
   <link rel="canonical" href="https://visa.vianaconsultancy.com/">
@@ -80,33 +96,6 @@
   }
   </script>
 
-  <!-- Tracking: GTM (GTM-NSBRS9XN since 2026-11-17, replacing GTM-5DHSWHDP), which carries GA4
-       (Google tag G-G0SJ0GTZWV; the direct G-5PR16BJBR1 install was removed on 2026-11-17), and
-       Microsoft Clarity (yuf8wg05wt). script.js still pushes its events to the dataLayer with gtag().
-       The queues (dataLayer, gtag, clarity) exist at once, so nothing sent early is lost, but the
-       two libraries are fetched only after the page "load" event, so they do not
-       compete with the CSS and the hero photo on a slow phone connection (PageSpeed, 2026-11-16). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    // A/B test: the Edge Function on / stores the variant in the cookie va_ab; every GA4 event carries it.
-    var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
-    if (abVariant) gtag('set', { ab_variant: abVariant });
-    window.clarity = window.clarity || function(){ (window.clarity.q = window.clarity.q || []).push(arguments); };
-    if (abVariant) clarity('set', 'ab_variant', abVariant);
-    (function () {
-      function load(src) { var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
-      function start() {
-        load('https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN');
-        load('https://www.clarity.ms/tag/yuf8wg05wt');
-      }
-      if (document.readyState === 'complete') start();
-      else window.addEventListener('load', start, { once: true });
-    })();
-  </script>
-
   <!-- Favicon -->
   <link rel="icon" href="https://visas.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8-1-150x138.png" sizes="32x32">
   <link rel="icon" href="https://visas.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8-1.png" sizes="192x192">
@@ -124,9 +113,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- GTM noscript -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSBRS9XN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
   <!-- ===== HEADER =====
     A plain sticky bar like page B's: the mark, the firm's name and one call to
     action. No script and no blur, so it costs nothing to draw (PageSpeed,

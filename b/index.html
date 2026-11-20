@@ -3,6 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- A/B test: the Edge Function on / rewrites to this file only for variant B, so
+       this page is always "b". The key goes into the dataLayer before the GTM
+       snippet, so GTM's first event already sees it; GTM reads it with a Data Layer Variable
+       "ab_variant". No tag is configured here. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ ab_variant: 'b' });
+  </script>
+  <!-- Google Tag Manager GTM-NSBRS9XN: the only tag on the site. GA4, Clarity and any other
+       tool are configured inside the container, never added to the code. -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
   <title>D7 &amp; D8 Visa Legal Support in Portugal | Viana Consultancy</title>
   <meta name="description" content="Unsure which visa fits your circumstances, what to prepare or how to plan for your family? Get legal guidance built around your income, work and plans for Portugal.">
   <!-- Page B of the A/B test. It is served under "/" for half of the visitors, so the
@@ -20,8 +36,6 @@
   <link rel="icon" href="/b/img/mark-64.png" sizes="64x64" type="image/png">
   <link rel="apple-touch-icon" href="/b/img/mark-180.png">
 
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="preconnect" href="https://www.clarity.ms">
   <link rel="preload" href="/b/fonts/Baskervville-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/b/fonts/InstrumentSans-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/b/css/b.css">

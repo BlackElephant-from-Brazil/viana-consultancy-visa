@@ -1,47 +1,10 @@
-// Page B tracking. Same tags as page A (GTM-NSBRS9XN, which carries GA4 G-G0SJ0GTZWV; Clarity yuf8wg05wt),
-// loaded only on the production host so local work and deploy previews never reach the reports.
-// Every GA4 event carries ab_variant "b" so the two pages can be told apart.
+// Page B events. Tags live only in GTM-NSBRS9XN, whose snippet is in b/index.html; this file
+// loads nothing. vaTrack() pushes the same event names as page A's trackEvent() in script.js
+// into the dataLayer, where GTM can pick them up.
 (function () {
-  var VARIANT = 'b';
-  var LIVE = location.hostname === 'visa.vianaconsultancy.com';
-
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-
-  // script.js of page A calls this "trackEvent"; same event names here.
   window.vaTrack = function (name, params) {
-    var p = params || {};
-    p.ab_variant = VARIANT;
-    if (LIVE) window.gtag('event', name, p);
-    else if (window.console) console.info('[track, not sent off production]', name, p);
+    window.gtag('event', name, params || {});
   };
-
-  if (!LIVE) return;
-
-  function load(src) {
-    var s = document.createElement('script');
-    s.async = true; s.src = src;
-    document.head.appendChild(s);
-  }
-
-  // Google Tag Manager
-  window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js', ab_variant: VARIANT });
-
-  // GA4 comes from the GTM container; these commands only keep the variant on its events.
-  window.gtag('js', new Date());
-  window.gtag('set', { ab_variant: VARIANT });
-  window.gtag('set', 'user_properties', { ab_variant: VARIANT });
-
-  // Microsoft Clarity
-  window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
-  window.clarity('set', 'ab_variant', VARIANT);
-
-  // The queues above take events at once; the libraries (about 500 KB) are fetched after the
-  // page load event so they never compete with the page itself on a slow connection.
-  function start() {
-    load('https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN');
-    load('https://www.clarity.ms/tag/yuf8wg05wt');
-  }
-  if (document.readyState === 'complete') start();
-  else window.addEventListener('load', start, { once: true });
 })();

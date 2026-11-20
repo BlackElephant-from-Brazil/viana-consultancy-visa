@@ -5,7 +5,7 @@
 // bar, the gclid in the query string and the Google Ads final URL stay "/".
 //
 // Testing: "/?ab=a" or "/?ab=b" forces a variant and stores it. Every answer carries the
-// header "X-AB-Variant". Both pages report the variant to GA4 as the "ab_variant" parameter.
+// header "X-AB-Variant".
 //
 // Ending the test: delete this file (and the cookie stops mattering), then keep the winner as
 // index.html. Netlify Split Testing is not used: it cannot be added to projects since 2026-08

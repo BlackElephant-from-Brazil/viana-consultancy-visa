@@ -3,31 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You | Patrícia Viana Lawyer</title>
-  <meta name="description" content="Your free Legal Roadmap to Portugal has been sent to your email.">
-  <meta name="robots" content="noindex, nofollow">
-
-  <!-- GTM -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NSBRS9XN');</script>
-  <!-- GA4 comes from the GTM container (Google tag G-G0SJ0GTZWV). The queue below only keeps
-       the A/B variant and the events script.js sends; no GA4 library is loaded here. -->
+  <!-- A/B test: the Edge Function on / keeps the variant in the cookie va_ab (readable from
+       JavaScript). The key goes into the dataLayer before the GTM snippet, so GTM's first event
+       already sees it; GTM reads it with a Data Layer Variable "ab_variant". -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
+    if (abVariant) window.dataLayer.push({ ab_variant: abVariant });
+  </script>
+  <!-- Google Tag Manager GTM-NSBRS9XN: the only tag on the site. GA4, Clarity and any other
+       tool are configured inside the container, never added to the code. -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NSBRS9XN"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    // A/B test: the Edge Function on / stores the variant in the cookie va_ab; every GA4 event carries it.
-    var abVariant = (document.cookie.match(/(?:^|; )va_ab=([ab])/) || [])[1];
-    if (abVariant) gtag('set', { ab_variant: abVariant });
   </script>
-  <!-- Microsoft Clarity (session recordings and heatmaps), project yuf8wg05wt. -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yuf8wg05wt");
-    if (abVariant) clarity('set', 'ab_variant', abVariant);
-  </script>
+  <title>Thank You | Patrícia Viana Lawyer</title>
+  <meta name="description" content="Your free Legal Roadmap to Portugal has been sent to your email.">
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- Favicon -->
   <link rel="icon" href="https://visas.vianaconsultancy.com/wp-content/uploads/2025/04/Logo-8-1-150x138.png" sizes="32x32">
@@ -87,9 +81,6 @@
   </style>
 </head>
 <body>
-  <!-- GTM noscript -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSBRS9XN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
   <section class="thankyou-section">
     <div class="thankyou-card">
       <a href="../index.html">
