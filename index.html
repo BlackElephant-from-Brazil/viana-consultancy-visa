@@ -133,13 +133,10 @@
     @font-face{font-family:"Figtree";font-style:normal;font-weight:300 800;font-display:swap;src:url("assets/fonts/Figtree-normal.woff2") format("woff2")}
   </style>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="a.css">
 </head>
 <body>
-  <!-- ===== HEADER =====
-    A plain sticky bar like page B's: the mark, the firm's name and one call to
-    action. No script and no blur, so it costs nothing to draw (PageSpeed,
-    2026-11-16; it replaced the liquid-glass navbar). -->
+  <!-- ===== HEADER ===== -->
   <header id="navbar" class="site-head">
     <a class="site-brand" href="#home" aria-label="Viana Consultancy, back to the top">
       <img class="site-brand__mark" src="assets/images/mark-64.webp" width="32" height="32" alt="">
@@ -154,29 +151,28 @@
   <main id="main">
 
   <!-- ===== HERO ===== -->
-  <!--
-    The photo is the thesis of the page: the lawyer herself, smiling, in
-    Lisbon (patricia5, cut to a portrait around her). On desktop she stands
-    in the space between the headline and the form. On phones the portrait
-    fills the top and the text starts over her navy blazer.
-  -->
   <section id="home" class="hero-section">
-    <picture class="hero-media">
-      <source media="(max-width: 768px)" srcset="assets/images/patricia-hero-sm.webp" width="600" height="900">
-      <img src="assets/images/patricia-hero.webp" alt="Patrícia Viana, immigration lawyer, in Lisbon" width="711" height="1066" fetchpriority="high" decoding="async">
-    </picture>
-    <div class="hero-shade" aria-hidden="true"></div>
-
     <div class="container hero-grid">
       <div class="hero-body">
         <p class="hero-label">
           <span class="hero-stars" aria-hidden="true">★★★★★</span>
-          <span>4.8 on Google · 63 reviews</span>
+          <span>4.8 on Google · 66 reviews</span>
         </p>
-        <h1 class="hero-title">Move to Portugal.<br><em>Work Directly With a Licensed Immigration Lawyer.</em></h1>
+        <h1 class="hero-title"><span>Move to Portugal.</span><br><em>Work Directly With a Licensed Immigration Lawyer.</em></h1>
         <p class="hero-sub">
           You are not hiring a relocation company that needs to find a lawyer for your case. <strong>You are hiring the lawyer directly.</strong>
         </p>
+        <a href="#book-now" class="btn-gold hero-cta">
+          Book a session
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-portrait">
+        <picture class="hero-media">
+          <source media="(max-width: 768px)" srcset="assets/images/patricia-hero-sm.webp" width="600" height="900">
+          <img src="assets/images/patricia-hero.webp" alt="Patrícia Viana, immigration lawyer, in Lisbon" width="711" height="1066" fetchpriority="high" decoding="async">
+        </picture>
       </div>
 
       <div class="lead-card hero-lead">
@@ -221,7 +217,7 @@
         </svg>
         <span class="rating-score">4.8</span>
         <span class="rating-stars" aria-hidden="true">★★★★★</span>
-        <span class="rating-count">Based on <strong>63 Google reviews</strong></span>
+        <span class="rating-count">Based on <strong>66 Google reviews</strong></span>
         <span class="sr-only">(opens Google in a new tab)</span>
       </a>
       <div class="slider-wrap">
@@ -276,7 +272,13 @@
     <div class="container about-grid">
       <div class="about-img-wrap fade-in">
         <div class="photo-frame">
-          <img src="assets/images/Group-6.webp" srcset="assets/images/Group-6-640.webp 640w, assets/images/Group-6.webp 854w" sizes="(max-width: 768px) 92vw, 460px" alt="Happy clients who relocated to Portugal" class="about-img" loading="lazy" decoding="async" width="854" height="965">
+          <!-- Photograph by Anastasia Shuraeva, Pexels (8796062). -->
+          <img src="https://images.pexels.com/photos/8796062/pexels-photo-8796062.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200"
+               srcset="https://images.pexels.com/photos/8796062/pexels-photo-8796062.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=640 640w,
+                       https://images.pexels.com/photos/8796062/pexels-photo-8796062.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200 1200w"
+               sizes="(max-width: 760px) min(88vw, 440px), min(42vw, 580px)"
+               alt="" class="about-img" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="1200" height="1800"
+               onerror="this.onerror = null; this.removeAttribute('srcset'); this.src = 'assets/images/Group-6.webp';">
         </div>
       </div>
       <div class="about-text fade-in" style="--d:.15s">
@@ -377,7 +379,10 @@
       <div class="team-row team-row-reverse">
         <div class="team-photo-wrap fade-in">
           <div class="photo-frame frame-left">
-            <img src="assets/images/Group-8.webp" srcset="assets/images/Group-8-480.webp 480w, assets/images/Group-8.webp 850w" sizes="(max-width: 768px) 92vw, 460px" alt="Bruna Xavier, Assistant Attorney" class="team-photo" loading="lazy" decoding="async" width="850" height="957">
+            <img src="assets/images/bruna-xavier-studio.jpg"
+                 srcset="assets/images/bruna-xavier-studio-480.jpg 480w, assets/images/bruna-xavier-studio.jpg 1024w"
+                 sizes="(max-width: 760px) min(88vw, 440px), min(42vw, 500px)"
+                 alt="Bruna Xavier, Assistant Attorney" class="team-photo" loading="lazy" decoding="async" width="1024" height="1024">
           </div>
         </div>
         <div class="team-text fade-in" style="--d:.15s">
@@ -564,7 +569,9 @@
       </div>
       <div class="final-cta-photo-wrap fade-in" style="--d:.15s">
         <div class="photo-frame frame-right">
-          <img src="assets/images/patricia-cta.webp" srcset="assets/images/patricia-cta-480.webp 480w, assets/images/patricia-cta.webp 880w" sizes="(max-width: 768px) 92vw, 440px" alt="Patrícia Viana, immigration lawyer, in her lawyer's robe at a Lisbon doorway" class="final-cta-photo" loading="lazy" decoding="async" width="880" height="1100">
+          <div class="final-photo-window">
+            <img src="assets/images/patricia-cta.webp" srcset="assets/images/patricia-cta-480.webp 480w, assets/images/patricia-cta.webp 880w" sizes="(max-width: 760px) min(92vw, 464px), min(41vw, 580px)" alt="Patrícia Viana, immigration lawyer, in her lawyer's robe at a Lisbon doorway" class="final-cta-photo" loading="lazy" decoding="async" width="880" height="1100">
+          </div>
         </div>
       </div>
     </div>
