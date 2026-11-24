@@ -456,6 +456,11 @@
         </div>
       </div>
     </section>
+    <!-- Copy per Google Ads search term: with ?term=<slug> in the URL, /b/js/terms.js swaps
+         the texts above for that term's copy before the first paint. It is written in only
+         for those visits, as a blocking same-origin script, so no one sees the default copy
+         flash; without "term" (or with an unknown one) the page keeps the copy above. -->
+    <script>if (/[?&]term=/.test(location.search)) document.write('<script src="/b/js/terms.js"><\/script>');</script>
   </main>
 
   <footer class="foot">
